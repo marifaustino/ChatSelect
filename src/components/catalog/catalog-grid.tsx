@@ -6,7 +6,7 @@ export function CatalogGrid({ instruments }: { instruments: Instrument[] }) {
     return (
       <div className="rounded-lg border border-dashed p-12 text-center">
         <p className="font-medium">Nenhum instrumento encontrado</p>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           Tente ajustar os filtros ou o termo de busca.
         </p>
       </div>

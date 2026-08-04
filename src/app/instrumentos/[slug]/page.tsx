@@ -38,7 +38,7 @@ export default async function InstrumentPage({ params }: InstrumentPageProps) {
 
   return (
     <Container className="max-w-3xl space-y-8 py-8">
-      <Link href="/" className="text-sm text-muted-foreground hover:underline">
+      <Link href="/" className="text-muted-foreground text-sm hover:underline">
         &larr; Voltar aos instrumentos
       </Link>
       <InstrumentHeader instrument={instrument} />

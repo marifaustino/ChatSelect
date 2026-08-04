@@ -14,7 +14,7 @@ export function InstrumentHeader({ instrument }: { instrument: Instrument }) {
       </div>
       <h1 className="text-3xl font-bold tracking-tight">{instrument.title}</h1>
       {instrument.description && (
-        <p className="text-lg text-muted-foreground">
+        <p className="text-muted-foreground text-lg">
           {instrument.description}
         </p>
       )}

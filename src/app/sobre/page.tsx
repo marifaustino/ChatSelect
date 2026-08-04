@@ -33,8 +33,8 @@ export default function AboutPage() {
           precisam escolher, entre dezenas de questionários, escalas,
           entrevistas e rubricas espalhados pela literatura, qual instrumento
           usar para medir usabilidade, satisfação, engajamento, confiança ou
-          efetividade pedagógica. Essa escolha é difícil quando não há um
-          lugar único reunindo essas opções lado a lado.
+          efetividade pedagógica. Essa escolha é difícil quando não há um lugar
+          único reunindo essas opções lado a lado.
         </p>
       </section>
 
@@ -51,12 +51,11 @@ export default function AboutPage() {
         <p>
           Cada instrumento é classificado como{" "}
           <strong>Adaptado/Original</strong> ({adaptedCount} instrumentos) —
-          quando deriva de uma fonte psicométrica validada e citável, como a
-          SUS ou o TAM — ou <strong>Ad-hoc</strong> ({adHocCount}{" "}
-          instrumentos) — quando foi criado pelos próprios autores de um
-          estudo especificamente para aquela pesquisa, geralmente sem dados
-          formais de confiabilidade. Veja a lista completa de instrumentos
-          ad-hoc na aba{" "}
+          quando deriva de uma fonte psicométrica validada e citável, como a SUS
+          ou o TAM — ou <strong>Ad-hoc</strong> ({adHocCount} instrumentos) —
+          quando foi criado pelos próprios autores de um estudo especificamente
+          para aquela pesquisa, geralmente sem dados formais de confiabilidade.
+          Veja a lista completa de instrumentos ad-hoc na aba{" "}
           <Link href="/ad-hoc" className="text-primary hover:underline">
             Ad-hoc
           </Link>
@@ -71,9 +70,9 @@ export default function AboutPage() {
           <Link href="/" className="text-primary hover:underline">
             Instrumentos
           </Link>
-          , busque por nome, autor ou descrição, ou filtre por categoria.
-          Clique em um instrumento para ver a ficha completa. Se você conhece
-          um instrumento que não está no catálogo, sugira sua inclusão na aba{" "}
+          , busque por nome, autor ou descrição, ou filtre por categoria. Clique
+          em um instrumento para ver a ficha completa. Se você conhece um
+          instrumento que não está no catálogo, sugira sua inclusão na aba{" "}
           <Link href="/solicitar" className="text-primary hover:underline">
             Solicitar instrumento
           </Link>

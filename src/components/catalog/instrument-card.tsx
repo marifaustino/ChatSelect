@@ -13,7 +13,7 @@ import type { Instrument } from "@/core/models/instrument";
 export function InstrumentCard({ instrument }: { instrument: Instrument }) {
   return (
     <Link href={`/instrumentos/${instrument.slug}`} className="block h-full">
-      <Card className="flex h-full flex-col transition-colors hover:border-primary">
+      <Card className="hover:border-primary flex h-full flex-col transition-colors">
         <CardHeader>
           <div className="flex flex-wrap items-center gap-1.5">
             <Badge variant="secondary">{instrument.sheetName}</Badge>

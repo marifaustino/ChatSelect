@@ -38,13 +38,13 @@ export default async function CatalogPage({
           <h1 className="text-2xl font-bold tracking-tight">
             Instrumentos de avaliação
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             {all.length} instrumentos usados em pesquisas sobre chatbots
             educacionais — questionários, escalas, entrevistas e rubricas.
           </p>
         </div>
         <SearchBar action="/" state={query} />
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           {filtered.length}{" "}
           {filtered.length === 1
             ? "instrumento encontrado"

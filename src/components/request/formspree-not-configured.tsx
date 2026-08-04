@@ -15,7 +15,7 @@ export function FormspreeNotConfigured() {
           O envio de solicitações depende de um endpoint do Formspree.
         </CardDescription>
       </CardHeader>
-      <CardContent className="text-sm text-muted-foreground">
+      <CardContent className="text-muted-foreground text-sm">
         <p>
           Crie um formulário gratuito em{" "}
           <a
@@ -28,7 +28,8 @@ export function FormspreeNotConfigured() {
           </a>
           , copie o endpoint (algo como{" "}
           <code>https://formspree.io/f/xxxxxxx</code>) e defina a variável{" "}
-          <code>NEXT_PUBLIC_FORMSPREE_ENDPOINT</code> em <code>.env.local</code>.
+          <code>NEXT_PUBLIC_FORMSPREE_ENDPOINT</code> em <code>.env.local</code>
+          .
         </p>
       </CardContent>
     </Card>

@@ -17,10 +17,10 @@ export default function RequestInstrumentPage() {
         <h1 className="text-2xl font-bold tracking-tight">
           Solicitar instrumento
         </h1>
-        <p className="text-sm text-muted-foreground">
-          Conhece um instrumento de avaliação usado em pesquisas sobre
-          chatbots educacionais que ainda não está no catálogo? Preencha o
-          formulário abaixo.
+        <p className="text-muted-foreground text-sm">
+          Conhece um instrumento de avaliação usado em pesquisas sobre chatbots
+          educacionais que ainda não está no catálogo? Preencha o formulário
+          abaixo.
         </p>
       </div>
 

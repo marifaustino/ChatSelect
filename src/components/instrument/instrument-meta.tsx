@@ -1,17 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import type { Instrument } from "@/core/models/instrument";
 
-function MetaItem({
-  label,
-  value,
-}: {
-  label: string;
-  value: React.ReactNode;
-}) {
+function MetaItem({ label, value }: { label: string; value: React.ReactNode }) {
   if (value === null || value === undefined || value === "") return null;
   return (
     <div>
-      <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+      <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
         {label}
       </dt>
       <dd className="text-sm">{value}</dd>
@@ -26,9 +20,15 @@ export function InstrumentMeta({ instrument }: { instrument: Instrument }) {
         <MetaItem label="Autores" value={instrument.authors} />
         <MetaItem label="Idioma original" value={instrument.originalLanguage} />
         <MetaItem label="Traduções" value={instrument.translations} />
-        <MetaItem label="Tipo de instrumento" value={instrument.instrumentType} />
+        <MetaItem
+          label="Tipo de instrumento"
+          value={instrument.instrumentType}
+        />
         <MetaItem label="Número de itens" value={instrument.itemCount} />
-        <MetaItem label="Formato de resposta" value={instrument.responseFormat} />
+        <MetaItem
+          label="Formato de resposta"
+          value={instrument.responseFormat}
+        />
         <MetaItem
           label="Amostra do estudo original"
           value={instrument.originalSample}
@@ -37,7 +37,10 @@ export function InstrumentMeta({ instrument }: { instrument: Instrument }) {
           label="Modalidades de comunicação"
           value={instrument.communicationModalities}
         />
-        <MetaItem label="Atributos de qualidade" value={instrument.qualityAttributes} />
+        <MetaItem
+          label="Atributos de qualidade"
+          value={instrument.qualityAttributes}
+        />
         <MetaItem label="Atributos" value={instrument.attributes} />
         {instrument.instrumentLink && (
           <MetaItem
@@ -47,7 +50,7 @@ export function InstrumentMeta({ instrument }: { instrument: Instrument }) {
                 href={instrument.instrumentLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="break-all text-primary hover:underline"
+                className="text-primary break-all hover:underline"
               >
                 {instrument.instrumentLink}
               </a>

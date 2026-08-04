@@ -20,12 +20,12 @@ export function CategoryFilter({
   return (
     <aside className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h2 className="text-muted-foreground text-sm font-semibold tracking-wide uppercase">
           Filtros
         </h2>
         <Link
           href={hrefClearAll(basePath)}
-          className="text-xs text-primary hover:underline"
+          className="text-primary text-xs hover:underline"
         >
           Limpar
         </Link>
@@ -43,15 +43,16 @@ export function CategoryFilter({
                 href={hrefToggleCategory(basePath, state, category)}
                 aria-pressed={active}
                 className={cn(
-                  "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-accent",
+                  "hover:bg-accent flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
                   active && "bg-accent font-medium",
                 )}
               >
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "flex size-4 shrink-0 items-center justify-center rounded-sm border border-input",
-                    active && "border-primary bg-primary text-primary-foreground",
+                    "border-input flex size-4 shrink-0 items-center justify-center rounded-sm border",
+                    active &&
+                      "border-primary bg-primary text-primary-foreground",
                   )}
                 >
                   {active && <Check className="size-3" />}

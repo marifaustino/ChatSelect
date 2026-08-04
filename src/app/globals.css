@@ -79,3 +79,32 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Google Translate: keep the intrusive top banner iframe from reflowing the
+ * whole page when a translation is active. Attribution stays visible via
+ * the inline widget itself (.goog-te-gadget), which we do not hide. */
+.goog-te-banner-frame {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+
+.google-translate-widget {
+  font-size: 0;
+  line-height: 0;
+}
+.google-translate-widget .goog-te-gadget {
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+.google-translate-widget .goog-te-gadget .goog-te-combo {
+  max-width: 9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--foreground);
+  padding: 0.25rem 0.375rem;
+  font-size: 0.8rem;
+}

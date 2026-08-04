@@ -7,11 +7,12 @@ export function DualApplicationNotice() {
         <p className="font-medium">Esta ficha documenta duas aplicações</p>
         <p className="text-muted-foreground">
           Os dados abaixo (autores, amostra, confiabilidade, vantagens e
-          limitações) descrevem <strong>dois instrumentos ad-hoc distintos</strong>,
-          criados por equipes de pesquisa diferentes, agrupados nesta ficha
-          porque a planilha-fonte os documenta em conjunto. Consulte o texto
-          das seções &ldquo;Descrição do instrumento&rdquo; e &ldquo;Fonte&rdquo; para distinguir
-          Aplicação 1 de Aplicação 2.
+          limitações) descrevem{" "}
+          <strong>dois instrumentos ad-hoc distintos</strong>, criados por
+          equipes de pesquisa diferentes, agrupados nesta ficha porque a
+          planilha-fonte os documenta em conjunto. Consulte o texto das seções
+          &ldquo;Descrição do instrumento&rdquo; e &ldquo;Fonte&rdquo; para
+          distinguir Aplicação 1 de Aplicação 2.
         </p>
       </CardContent>
     </Card>
