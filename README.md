@@ -1,8 +1,10 @@
-# InstruChat
+# ChatSelect
 
 > Catálogo de **instrumentos de avaliação** (questionários, escalas, entrevistas, rubricas) usados em pesquisas sobre **chatbots educacionais**.
+>
+> ⚠️ Este nome colide com outro projeto separado feito na mesma sessão (catálogo de **métodos** de avaliação, com Supabase, em `../chatselect`). São dois apps distintos que passaram a compartilhar o mesmo nome de marca a pedido do usuário.
 
-InstruChat ajuda pesquisadores a escolher qual instrumento usar para avaliar um chatbot educacional, navegando por 41 instrumentos extraídos de artigos científicos, cada um classificado como **Adaptado/Original** (deriva de uma fonte psicométrica validada, ex.: SUS, TAM) ou **Ad-hoc** (criado pelos próprios autores do estudo, sem validação psicométrica formal).
+ChatSelect ajuda pesquisadores a escolher qual instrumento usar para avaliar um chatbot educacional, navegando pelos instrumentos **Adaptado/Original** (derivam de uma fonte psicométrica validada, ex.: SUS, TAM) extraídos de artigos científicos. Instrumentos **Ad-hoc** (criados pelos próprios autores do estudo, sem validação psicométrica formal) ficam de fora da página inicial e da busca geral — eles têm uma aba própria, "Ad-hoc".
 
 ## Stack
 
@@ -32,6 +34,16 @@ src/app/**                                ← páginas (View)
 ```
 
 `npm run dev` e `npm run build` regeneram o catálogo automaticamente antes de rodar — não é preciso rodar o script manualmente no dia a dia.
+
+## Instrumentos Adaptado/Original vs. Ad-hoc
+
+- A **página inicial** (`/`) e sua busca/filtros mostram **apenas** instrumentos Adaptado/Original — ad-hoc nunca aparece lá, mesmo digitando um termo que daria match no título de um instrumento ad-hoc.
+- A aba **Ad-hoc** (`/ad-hoc`) lista exclusivamente os instrumentos ad-hoc, sem busca/filtros.
+- Essa restrição é aplicada em `src/app/page.tsx` (`filterByClassification(getAllInstruments(), "adapted")` antes de qualquer outro filtro) — não depende de nenhum parâmetro de URL, então não dá para "escapar" dela pela busca.
+
+## Filtros da página inicial
+
+Categoria, Idioma, Modalidade de comunicação, Atributos e Atributos de qualidade — cada um extrai suas opções dinamicamente dos valores presentes nos instrumentos Adaptado/Original (não do catálogo inteiro), para que nenhuma opção de filtro leve a uma lista vazia.
 
 ## Rodando localmente
 

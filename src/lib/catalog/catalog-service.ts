@@ -1,14 +1,25 @@
 import type { Instrument } from "@/core/models/instrument";
+import {
+  FACET_KEYS,
+  type CatalogQuery,
+  type FacetKey,
+} from "@/core/models/catalog-query";
 
 /**
  * Pure functions over an `Instrument[]` — no data-source dependency, so
  * tests can pass small fixture arrays directly instead of mocking a module.
  */
 
-export interface CatalogFilters {
-  q?: string;
-  category?: string;
-}
+export type CatalogFilters = CatalogQuery;
+
+/** Maps each URL-facing facet key to the Instrument field it filters on. */
+const FACET_FIELD_MAP: Record<FacetKey, keyof Instrument> = {
+  category: "category",
+  originalLanguage: "originalLanguage",
+  communicationModality: "communicationModalities",
+  attribute: "attributes",
+  qualityAttribute: "qualityAttributes",
+};
 
 function matchesQuery(instrument: Instrument, q: string): boolean {
   const needle = q.toLowerCase();
@@ -31,8 +42,11 @@ export function filterInstruments(
 ): Instrument[] {
   return instruments.filter((instrument) => {
     if (filters.q && !matchesQuery(instrument, filters.q)) return false;
-    if (filters.category && instrument.category !== filters.category)
-      return false;
+    for (const key of FACET_KEYS) {
+      const filterValue = filters[key];
+      if (!filterValue) continue;
+      if (instrument[FACET_FIELD_MAP[key]] !== filterValue) return false;
+    }
     return true;
   });
 }
@@ -59,10 +73,30 @@ export function filterByClassification(
   );
 }
 
-export function getUniqueCategories(instruments: Instrument[]): string[] {
+/** Unique, sorted, non-null values of a given Instrument field — used to
+ * build filter option lists from whatever subset of instruments is
+ * currently in scope (e.g. adapted-only on the home page). */
+export function getUniqueValues(
+  instruments: Instrument[],
+  field: keyof Instrument,
+): string[] {
   const set = new Set<string>();
   for (const instrument of instruments) {
-    if (instrument.category) set.add(instrument.category);
+    const value = instrument[field];
+    if (typeof value === "string" && value) set.add(value);
   }
   return [...set].sort((a, b) => a.localeCompare(b, "pt-BR"));
+}
+
+/** Builds the option lists for every facet filter from the given
+ * instruments (should be the same subset shown by the page, so no filter
+ * option ever leads to a dead-end zero-result state). */
+export function getFacetOptions(
+  instruments: Instrument[],
+): Record<FacetKey, string[]> {
+  const result = {} as Record<FacetKey, string[]>;
+  for (const key of FACET_KEYS) {
+    result[key] = getUniqueValues(instruments, FACET_FIELD_MAP[key]);
+  }
+  return result;
 }

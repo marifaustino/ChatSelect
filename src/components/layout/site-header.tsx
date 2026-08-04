@@ -28,7 +28,7 @@ export function SiteHeader() {
           className="text-lg font-semibold tracking-tight"
           onClick={() => setOpen(false)}
         >
-          InstruChat
+          ChatSelect
         </Link>
 
         <div className="flex items-center gap-4">

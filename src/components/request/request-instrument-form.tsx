@@ -18,7 +18,7 @@ export function RequestInstrumentForm({ endpoint }: { endpoint: string }) {
       <input
         type="hidden"
         name="_subject"
-        value="Nova solicitação de instrumento — InstruChat"
+        value="Nova solicitação de instrumento — ChatSelect"
       />
 
       <div className="space-y-1.5">

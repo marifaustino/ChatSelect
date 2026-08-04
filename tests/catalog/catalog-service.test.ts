@@ -4,7 +4,8 @@ import {
   filterByClassification,
   filterInstruments,
   findInstrumentBySlug,
-  getUniqueCategories,
+  getFacetOptions,
+  getUniqueValues,
   sortByTitle,
 } from "@/lib/catalog/catalog-service";
 
@@ -21,9 +22,9 @@ function buildInstrument(overrides: Partial<Instrument> = {}): Instrument {
     instrumentType: "Questionário",
     instrumentDescription: null,
     category: "Usability",
-    qualityAttributes: null,
-    attributes: null,
-    communicationModalities: null,
+    qualityAttributes: "Product Quality",
+    attributes: "Usability",
+    communicationModalities: "Text",
     originalSample: null,
     itemCount: "10 itens",
     responseFormat: null,
@@ -45,6 +46,8 @@ const CUQ = buildInstrument({
   sheetName: "CUQ",
   title: "Chatbot Usability Questionnaire (CUQ)",
   category: "Usability",
+  originalLanguage: "Inglês",
+  communicationModalities: "Multimodality",
 });
 const ATTITUDE = buildInstrument({
   slug: "attitude-survey",
@@ -52,6 +55,7 @@ const ATTITUDE = buildInstrument({
   title: "Attitude Survey",
   authors: "Kaleemunnisa et al.",
   category: "Acceptance",
+  originalLanguage: "Inglês",
   classification: "ad-hoc",
 });
 
@@ -71,6 +75,12 @@ describe("filterInstruments", () => {
     expect(filterInstruments(ALL, { category: "Acceptance" })).toEqual([
       ATTITUDE,
     ]);
+  });
+
+  it("filters by communication modality", () => {
+    expect(
+      filterInstruments(ALL, { communicationModality: "Multimodality" }),
+    ).toEqual([CUQ]);
   });
 
   it("combines query and category with AND semantics", () => {
@@ -117,13 +127,33 @@ describe("filterByClassification", () => {
   });
 });
 
-describe("getUniqueCategories", () => {
-  it("returns sorted, de-duplicated categories", () => {
-    expect(getUniqueCategories(ALL)).toEqual(["Acceptance", "Usability"]);
+describe("getUniqueValues", () => {
+  it("returns sorted, de-duplicated values for a given field", () => {
+    expect(getUniqueValues(ALL, "category")).toEqual([
+      "Acceptance",
+      "Usability",
+    ]);
   });
 
-  it("ignores null categories", () => {
+  it("ignores null values", () => {
     const withNull = [...ALL, buildInstrument({ slug: "x", category: null })];
-    expect(getUniqueCategories(withNull)).toEqual(["Acceptance", "Usability"]);
+    expect(getUniqueValues(withNull, "category")).toEqual([
+      "Acceptance",
+      "Usability",
+    ]);
+  });
+});
+
+describe("getFacetOptions", () => {
+  it("builds option lists for every facet from the given instrument subset", () => {
+    const adaptedOnly = filterByClassification(ALL, "adapted");
+    const facets = getFacetOptions(adaptedOnly);
+
+    // Acceptance only exists on the ad-hoc ATTITUDE instrument, so it must
+    // not appear as an option when facets are derived from adapted-only —
+    // otherwise selecting it on the home page would always yield 0 results.
+    expect(facets.category).toEqual(["Usability"]);
+    expect(facets.originalLanguage).toEqual(["Inglês"]);
+    expect(facets.communicationModality).toEqual(["Multimodality", "Text"]);
   });
 });

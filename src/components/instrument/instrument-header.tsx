@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { ClassificationBadge } from "@/components/catalog/classification-badge";
 import type { Instrument } from "@/core/models/instrument";
 
 export function InstrumentHeader({ instrument }: { instrument: Instrument }) {
@@ -10,7 +9,6 @@ export function InstrumentHeader({ instrument }: { instrument: Instrument }) {
         {instrument.category && (
           <Badge variant="muted">{instrument.category}</Badge>
         )}
-        <ClassificationBadge classification={instrument.classification} />
       </div>
       <h1 className="text-3xl font-bold tracking-tight">{instrument.title}</h1>
       {instrument.description && (

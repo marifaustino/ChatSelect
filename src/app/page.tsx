@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { SearchBar } from "@/components/catalog/search-bar";
-import { CategoryFilter } from "@/components/catalog/category-filter";
+import { FilterSidebar } from "@/components/catalog/filter-sidebar";
 import { CatalogGrid } from "@/components/catalog/catalog-grid";
 import { getAllInstruments } from "@/lib/catalog/instruments-repository";
 import {
+  filterByClassification,
   filterInstruments,
-  getUniqueCategories,
+  getFacetOptions,
   sortByTitle,
 } from "@/lib/catalog/catalog-service";
 import { catalogQueryFromSearchParams } from "@/core/models/catalog-query";
@@ -26,21 +27,24 @@ export default async function CatalogPage({
 }) {
   const query = catalogQueryFromSearchParams(await searchParams);
 
-  const all = getAllInstruments();
-  const categories = getUniqueCategories(all);
-  const filtered = sortByTitle(filterInstruments(all, query));
+  // Only Adaptado/Original instruments are shown here (and match the search
+  // bar). Ad-hoc instruments are exclusive to the dedicated /ad-hoc page.
+  const adapted = filterByClassification(getAllInstruments(), "adapted");
+  const facetOptions = getFacetOptions(adapted);
+  const filtered = sortByTitle(filterInstruments(adapted, query));
 
   return (
     <Container className="grid gap-8 py-8 lg:grid-cols-[260px_1fr]">
-      <CategoryFilter basePath="/" state={query} categories={categories} />
+      <FilterSidebar basePath="/" state={query} facetOptions={facetOptions} />
       <div className="flex flex-col gap-6">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
             Instrumentos de avaliação
           </h1>
           <p className="text-muted-foreground text-sm">
-            {all.length} instrumentos usados em pesquisas sobre chatbots
-            educacionais — questionários, escalas, entrevistas e rubricas.
+            {adapted.length} instrumentos Adaptado/Original usados em pesquisas
+            sobre chatbots educacionais — questionários, escalas, entrevistas e
+            rubricas.
           </p>
         </div>
         <SearchBar action="/" state={query} />

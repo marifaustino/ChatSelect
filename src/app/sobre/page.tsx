@@ -6,7 +6,7 @@ import { filterByClassification } from "@/lib/catalog/catalog-service";
 
 export const metadata: Metadata = {
   title: "Sobre",
-  description: "Sobre o InstruChat e como o catálogo foi construído.",
+  description: "Sobre o ChatSelect e como o catálogo foi construído.",
 };
 
 export default function AboutPage() {
@@ -18,7 +18,7 @@ export default function AboutPage() {
     <Container className="max-w-3xl space-y-6 py-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">
-          Sobre o InstruChat
+          Sobre o ChatSelect
         </h1>
         <p className="text-muted-foreground">
           Um catálogo de instrumentos de avaliação para pesquisa em chatbots
@@ -41,7 +41,7 @@ export default function AboutPage() {
       <section className="space-y-3 text-sm leading-relaxed">
         <h2 className="text-xl font-semibold">O catálogo</h2>
         <p>
-          O InstruChat reúne {all.length} instrumentos extraídos de artigos
+          O ChatSelect reúne {all.length} instrumentos extraídos de artigos
           científicos que avaliaram chatbots em contextos educacionais. Cada
           ficha documenta autores, idioma original, traduções, amostra do
           estudo, número de itens, formato de resposta, forma de pontuação,
@@ -55,7 +55,8 @@ export default function AboutPage() {
           ou o TAM — ou <strong>Ad-hoc</strong> ({adHocCount} instrumentos) —
           quando foi criado pelos próprios autores de um estudo especificamente
           para aquela pesquisa, geralmente sem dados formais de confiabilidade.
-          Veja a lista completa de instrumentos ad-hoc na aba{" "}
+          A página inicial mostra apenas os instrumentos Adaptado/Original; a
+          lista completa de instrumentos ad-hoc fica na aba{" "}
           <Link href="/ad-hoc" className="text-primary hover:underline">
             Ad-hoc
           </Link>
@@ -70,38 +71,13 @@ export default function AboutPage() {
           <Link href="/" className="text-primary hover:underline">
             Instrumentos
           </Link>
-          , busque por nome, autor ou descrição, ou filtre por categoria. Clique
-          em um instrumento para ver a ficha completa. Se você conhece um
-          instrumento que não está no catálogo, sugira sua inclusão na aba{" "}
+          , busque por nome, autor ou descrição, ou filtre por categoria,
+          idioma, modalidade de comunicação e atributos. Clique em um
+          instrumento para ver a ficha completa. Se você conhece um instrumento
+          que não está no catálogo, sugira sua inclusão na aba{" "}
           <Link href="/solicitar" className="text-primary hover:underline">
             Solicitar instrumento
           </Link>
-          .
-        </p>
-      </section>
-
-      <section className="space-y-3 text-sm leading-relaxed">
-        <h2 className="text-xl font-semibold">Créditos</h2>
-        <p>
-          O formato do catálogo e da página de detalhe de cada instrumento é
-          inspirado no{" "}
-          <a
-            href="https://www.ux4all.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            UX4ALL
-          </a>
-          . A organização por categorias e filtros é inspirada no{" "}
-          <a
-            href="https://uxnator.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            UXNATOR
-          </a>
           .
         </p>
       </section>

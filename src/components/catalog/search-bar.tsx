@@ -1,9 +1,10 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { FACET_KEYS } from "@/core/models/catalog-query";
 import type { CatalogUrlState } from "@/lib/catalog/catalog-url";
 
-/** Plain GET form — no client JS needed. Preserves the active category via a
- * hidden field; resets to page defaults on a new search. */
+/** Plain GET form — no client JS needed. Preserves every active facet via
+ * hidden fields; resets to page defaults on a new search. */
 export function SearchBar({
   action,
   state,
@@ -13,9 +14,12 @@ export function SearchBar({
 }) {
   return (
     <form action={action} method="get" className="flex gap-2" role="search">
-      {state.category && (
-        <input type="hidden" name="category" value={state.category} />
-      )}
+      {FACET_KEYS.map((key) => {
+        const value = state[key];
+        return value ? (
+          <input key={key} type="hidden" name={key} value={value} />
+        ) : null;
+      })}
       <Input
         type="search"
         name="q"

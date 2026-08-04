@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "InstruChat — Catálogo de Instrumentos de Avaliação",
-    template: "%s | InstruChat",
+    default: "ChatSelect — Catálogo de Instrumentos de Avaliação",
+    template: "%s | ChatSelect",
   },
   description:
     "Catálogo de instrumentos de avaliação (questionários, escalas, entrevistas, rubricas) usados em pesquisas sobre chatbots educacionais.",
