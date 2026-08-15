@@ -6,19 +6,27 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { GoogleTranslateWidget } from "@/components/layout/google-translate-widget";
+import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/i18n/locales";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-const NAV_ITEMS = [
-  { href: "/", label: "Instrumentos" },
-  { href: "/ad-hoc", label: "Ad-hoc" },
-  { href: "/solicitar", label: "Solicitar instrumento" },
-  { href: "/sobre", label: "Sobre" },
-] as const;
-
-export function SiteHeader() {
+export function SiteHeader({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  const NAV_ITEMS = [
+    { href: "/", label: dict.nav.catalog },
+    { href: "/ad-hoc", label: dict.nav.adHoc },
+    { href: "/solicitar", label: dict.nav.request },
+    { href: "/sobre", label: dict.nav.about },
+  ] as const;
 
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-40 border-b backdrop-blur">
@@ -47,13 +55,17 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <GoogleTranslateWidget />
+          <LocaleSwitcher
+            locale={locale}
+            pathname={pathname}
+            dict={dict.localeSwitcher}
+          />
 
           <Button
             variant="ghost"
             size="icon"
             className="md:hidden"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-label={open ? dict.common.closeMenu : dict.common.openMenu}
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}

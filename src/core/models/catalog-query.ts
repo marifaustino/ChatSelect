@@ -12,16 +12,30 @@ export const FACET_KEYS = [
 
 export type FacetKey = (typeof FACET_KEYS)[number];
 
+const facetArray = z.array(z.string().trim().min(1)).optional();
+
 export const catalogQuerySchema = z.object({
   q: z.string().trim().optional(),
-  category: z.string().trim().optional(),
-  originalLanguage: z.string().trim().optional(),
-  communicationModality: z.string().trim().optional(),
-  attribute: z.string().trim().optional(),
-  qualityAttribute: z.string().trim().optional(),
+  category: facetArray,
+  originalLanguage: facetArray,
+  communicationModality: facetArray,
+  attribute: facetArray,
+  qualityAttribute: facetArray,
 });
 
 export type CatalogQuery = z.infer<typeof catalogQuerySchema>;
+
+/** Normalizes a raw searchParams value (string | string[] | undefined) into
+ * a non-empty string array, or undefined if there's nothing selected. Each
+ * facet can appear multiple times in the URL (?category=A&category=B),
+ * which Next.js already parses into an array for us. */
+function toFacetArray(
+  value: string | string[] | undefined,
+): string[] | undefined {
+  if (value === undefined) return undefined;
+  const values = Array.isArray(value) ? value : [value];
+  return values.length > 0 ? values : undefined;
+}
 
 export function catalogQueryFromSearchParams(
   record: Record<string, string | string[] | undefined>,
@@ -30,11 +44,11 @@ export function catalogQueryFromSearchParams(
     Array.isArray(value) ? value[0] : value;
   const parsed = catalogQuerySchema.safeParse({
     q: single(record.q) || undefined,
-    category: single(record.category) || undefined,
-    originalLanguage: single(record.originalLanguage) || undefined,
-    communicationModality: single(record.communicationModality) || undefined,
-    attribute: single(record.attribute) || undefined,
-    qualityAttribute: single(record.qualityAttribute) || undefined,
+    category: toFacetArray(record.category),
+    originalLanguage: toFacetArray(record.originalLanguage),
+    communicationModality: toFacetArray(record.communicationModality),
+    attribute: toFacetArray(record.attribute),
+    qualityAttribute: toFacetArray(record.qualityAttribute),
   });
   return parsed.success ? parsed.data : {};
 }

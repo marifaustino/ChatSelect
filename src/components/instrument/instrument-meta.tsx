@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import type { Instrument } from "@/core/models/instrument";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 function MetaItem({ label, value }: { label: string; value: React.ReactNode }) {
   if (value === null || value === undefined || value === "") return null;
@@ -13,44 +14,56 @@ function MetaItem({ label, value }: { label: string; value: React.ReactNode }) {
   );
 }
 
-export function InstrumentMeta({ instrument }: { instrument: Instrument }) {
+export function InstrumentMeta({
+  instrument,
+  dict,
+}: {
+  instrument: Instrument;
+  dict: Dictionary["instrumentDetail"];
+}) {
   return (
     <Card>
       <CardContent className="grid grid-cols-1 gap-4 pt-6 sm:grid-cols-2 lg:grid-cols-3">
-        <MetaItem label="Autores" value={instrument.authors} />
-        <MetaItem label="Idioma original" value={instrument.originalLanguage} />
-        <MetaItem label="Traduções" value={instrument.translations} />
+        <MetaItem label={dict.metaAuthors} value={instrument.authors} />
         <MetaItem
-          label="Tipo de instrumento"
+          label={dict.metaOriginalLanguage}
+          value={instrument.originalLanguage}
+        />
+        <MetaItem
+          label={dict.metaTranslations}
+          value={instrument.translations}
+        />
+        <MetaItem
+          label={dict.metaInstrumentType}
           value={instrument.instrumentType}
         />
-        <MetaItem label="Número de itens" value={instrument.itemCount} />
+        <MetaItem label={dict.metaItemCount} value={instrument.itemCount} />
         <MetaItem
-          label="Formato de resposta"
+          label={dict.metaResponseFormat}
           value={instrument.responseFormat}
         />
         <MetaItem
-          label="Amostra do estudo original"
+          label={dict.metaOriginalSample}
           value={instrument.originalSample}
         />
         <MetaItem
-          label="Modalidades de comunicação"
+          label={dict.metaCommunicationModalities}
           value={instrument.communicationModalities}
         />
         <MetaItem
-          label="Atributos de qualidade"
+          label={dict.metaQualityAttributes}
           value={instrument.qualityAttributes}
         />
-        <MetaItem label="Atributos" value={instrument.attributes} />
+        <MetaItem label={dict.metaAttributes} value={instrument.attributes} />
         {instrument.instrumentLink && (
           <MetaItem
-            label="Link do instrumento"
+            label={dict.metaInstrumentLink}
             value={
               <a
                 href={instrument.instrumentLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary break-all hover:underline"
+                className="text-primary hover:text-primary-hover break-all hover:underline"
               >
                 {instrument.instrumentLink}
               </a>

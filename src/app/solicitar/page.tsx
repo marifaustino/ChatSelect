@@ -1,34 +1,32 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { RequestInstrumentForm } from "@/components/request/request-instrument-form";
-import { FormspreeNotConfigured } from "@/components/request/formspree-not-configured";
-import { env } from "@/config/env";
+import { getLocale } from "@/i18n/get-locale";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export const metadata: Metadata = {
-  title: "Solicitar instrumento",
-  description:
-    "Sugira a inclusão de um novo instrumento de avaliação no catálogo.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = getDictionary(await getLocale());
+  return {
+    title: dict.requestPage.metaTitle,
+    description: dict.requestPage.metaDescription,
+  };
+}
 
-export default function RequestInstrumentPage() {
+export default async function RequestInstrumentPage() {
+  const dict = getDictionary(await getLocale());
+
   return (
     <Container className="max-w-xl space-y-6 py-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">
-          Solicitar instrumento
+          {dict.requestPage.heading}
         </h1>
         <p className="text-muted-foreground text-sm">
-          Conhece um instrumento de avaliação usado em pesquisas sobre chatbots
-          educacionais que ainda não está no catálogo? Preencha o formulário
-          abaixo.
+          {dict.requestPage.introText}
         </p>
       </div>
 
-      {env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ? (
-        <RequestInstrumentForm endpoint={env.NEXT_PUBLIC_FORMSPREE_ENDPOINT} />
-      ) : (
-        <FormspreeNotConfigured />
-      )}
+      <RequestInstrumentForm dict={dict.requestPage} />
     </Container>
   );
 }

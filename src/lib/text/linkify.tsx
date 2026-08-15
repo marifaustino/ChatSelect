@@ -17,7 +17,7 @@ export function Linkify({ text }: { text: string }) {
             href={part}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary hover:underline"
+            className="text-primary hover:text-primary-hover hover:underline"
           >
             {part}
           </a>

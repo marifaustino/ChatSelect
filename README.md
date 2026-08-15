@@ -12,8 +12,8 @@ ChatSelect ajuda pesquisadores a escolher qual instrumento usar para avaliar um 
 - **Sem banco de dados**: site estático. Os dados vêm de um CSV, transformados em JSON em tempo de build
 - **Zod** para validação
 - **Vitest** para testes
-- **Formspree** para o formulário de solicitação de instrumentos (sem backend próprio)
-- **Google Translate** (widget de tradução, PT/EN ocultados da lista de idiomas)
+- **Formspree** para o formulário de solicitação de instrumentos (sem backend próprio), enviado via `fetch` (sem reload/redirect da página)
+- **i18n próprio** via dicionários TypeScript por idioma (sem serviço de tradução externo) — ver seção [Internacionalização](#internacionalização)
 
 ## Arquitetura
 
@@ -60,21 +60,32 @@ npm run dev   # http://localhost:3000 (ou a próxima porta livre)
 
 O script valida o CSV inteiro com Zod e falha alto (com mensagem clara) se algum campo obrigatório faltar ou se houver slug duplicado.
 
-## Variáveis de ambiente
+## Solicitar instrumento
 
-| Variável                          | Escopo  | Descrição                                                                 |
-| ---------------------------------- | ------- | -------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_FORMSPREE_ENDPOINT`   | público | Endpoint do Formspree (`https://formspree.io/f/xxxxxxx`) para a aba "Solicitar instrumento". Sem essa variável, a página mostra um aviso explicando como configurar, em vez de um formulário quebrado. |
+A aba "Solicitar instrumento" (`/solicitar`) é um formulário nativo (`src/components/request/request-instrument-form.tsx`, client component) com os mesmos componentes de UI do resto do site — nada de iframe ou redirecionamento para fora do app. O envio é feito via `fetch` para o endpoint do Formspree (`FORMSPREE_ENDPOINT`, hardcoded no componente — não é um segredo, já que é usado no navegador de qualquer forma), com `Accept: application/json` para receber uma resposta JSON em vez do redirecionamento padrão do Formspree. Em caso de sucesso, o formulário é substituído por uma mensagem de confirmação; em caso de falha, uma mensagem de erro aparece acima do botão de envio sem limpar os campos já preenchidos. Para trocar o formulário/conta do Formspree, edite a constante `FORMSPREE_ENDPOINT` nesse arquivo. Não há variáveis de ambiente necessárias no projeto no momento.
 
-Copie `.env.example` para `.env.local` e preencha.
+## Internacionalização
 
-## Google Translate
+O ChatSelect **não** usa mais o widget clássico do Google Translate (descontinuado para uso comercial desde 2019, instável e ruim para SEO). Em vez disso, a interface usa um sistema de i18n próprio, sem dependência de serviço externo:
 
-O widget (aba superior do site) traduz a interface e o conteúdo para qualquer idioma **exceto** português e inglês (já nativos). Detalhes técnicos:
+- **Escopo**: apenas a interface (navegação, botões, filtros, textos estáticos das páginas Sobre/Ad-hoc/Solicitar) é traduzida. Os dados das 41 fichas de instrumentos (título, descrição, autores, vantagens, limitações, fonte etc.) **nunca** são traduzidos — sempre renderizam em português, independentemente do idioma selecionado, seguindo o mesmo princípio do projeto irmão (Supabase) de nunca traduzir os dados de pesquisa subjacentes.
+- **10 idiomas**: português (`pt-BR`) e inglês (`en`) são nativos, escritos e revisados manualmente. Os outros 8 — espanhol, francês, alemão, italiano, chinês simplificado, japonês, russo e árabe — foram traduzidos diretamente (sem API/serviço de tradução, sem custo recorrente, sem nova dependência de runtime).
+- **Árabe** usa layout RTL (`dir="rtl"` no `<html>`, calculado automaticamente por `isRtlLocale()`).
+- **Persistência**: cookie `locale`, sem prefixo de idioma na URL. A troca de idioma é uma Server Action (`src/i18n/actions.ts`) que grava o cookie e redireciona — o seletor de idioma (`LocaleSwitcher`) não depende de JavaScript no cliente.
 
-- `src/components/layout/google-translate-widget.tsx`: carrega o script oficial do Google e restringe idiomas via `includedLanguages` (a API pública do widget não tem um parâmetro de exclusão — por isso listamos todos os idiomas suportados menos `pt`/`en`).
-- `src/components/layout/dom-patch-for-translate.tsx`: o Google Translate reescreve o DOM por fora do React (envolve textos em `<font>`), o que pode causar o erro clássico `NotFoundError: removeChild` quando o React tenta reconciliar essa mesma área depois (ex.: navegação client-side). Esse componente aplica um patch defensivo em `removeChild`/`insertBefore`, documentado e usado por outros projetos React nessa mesma situação.
-- **Não foi possível verificar via `curl`** que o dropdown de tradução funciona de fato (isso exige um navegador executando JavaScript) — confirme manualmente abrindo o site e testando a troca de idioma antes de considerar essa parte concluída.
+Arquitetura:
+
+```
+src/i18n/locales.ts              ← idiomas suportados, labels nativos, RTL
+src/i18n/get-locale.ts           ← lê o cookie `locale` (server-only)
+src/i18n/actions.ts              ← Server Action que grava o cookie e redireciona
+src/i18n/format-message.ts       ← interpolação de {tokens} nas strings
+src/i18n/dictionaries/types.ts   ← interface Dictionary (contrato compartilhado)
+src/i18n/dictionaries/*.ts       ← uma implementação por idioma
+src/i18n/dictionaries/index.ts   ← getDictionary(locale)
+```
+
+Para adicionar um novo idioma: acrescente o código a `SUPPORTED_LOCALES` e um rótulo a `LOCALE_LABELS` em `src/i18n/locales.ts`, crie `src/i18n/dictionaries/<locale>.ts` implementando `Dictionary`, e registre-o em `src/i18n/dictionaries/index.ts`. O TypeScript aponta qualquer campo faltante em tempo de compilação.
 
 ## Scripts
 
@@ -92,5 +103,4 @@ O widget (aba superior do site) traduz a interface e o conteúdo para qualquer i
 
 1. Suba o repositório para o GitHub.
 2. Importe o repositório na Vercel (`vercel.json` já define `framework: nextjs`).
-3. Configure `NEXT_PUBLIC_FORMSPREE_ENDPOINT` em Project Settings → Environment Variables.
-4. Deploy. O build já regenera o catálogo a partir do CSV versionado no repositório.
+3. Deploy. O build já regenera o catálogo a partir do CSV versionado no repositório.
