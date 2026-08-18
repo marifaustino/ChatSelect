@@ -6,40 +6,39 @@ import {
   filterByClassification,
   sortByTitle,
 } from "@/lib/catalog/catalog-service";
-import { getLocale } from "@/i18n/get-locale";
-import { getDictionary } from "@/i18n/dictionaries";
-import { formatMessage } from "@/i18n/format-message";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dict = getDictionary(await getLocale());
-  return {
-    title: dict.adHocPage.metaTitle,
-    description: dict.adHocPage.metaDescription,
-  };
-}
+export const metadata: Metadata = {
+  title: "Ad-hoc",
+  description:
+    "Instrumentos ad-hoc: questionários criados pelos próprios autores dos estudos, sem derivar de uma fonte psicométrica validada.",
+};
 
-export default async function AdHocPage() {
+export default function AdHocPage() {
   const instruments = sortByTitle(
     filterByClassification(getAllInstruments(), "ad-hoc"),
   );
-  const dict = getDictionary(await getLocale());
 
   return (
     <Container className="space-y-6 py-8">
       <div className="max-w-3xl space-y-3">
         <h1 className="text-2xl font-bold tracking-tight">
-          {dict.adHocPage.heading}
+          Instrumentos ad-hoc
         </h1>
         <p className="text-muted-foreground text-sm leading-relaxed">
-          {dict.adHocPage.introText}
+          Instrumentos ad-hoc são questionários, escalas ou roteiros criados
+          pelos próprios autores de um estudo especificamente para aquela
+          pesquisa, sem derivar de uma fonte psicométrica validada e citável.
+          Isso significa que, na maioria dos casos, não há dados formais de
+          confiabilidade (como Alfa de Cronbach) ou validação prévia
+          disponíveis para esses instrumentos — eles foram construídos sob
+          medida para responder às necessidades do estudo específico em que
+          foram aplicados.
         </p>
         <p className="text-muted-foreground text-sm">
-          {formatMessage(dict.adHocPage.countTemplate, {
-            count: instruments.length,
-          })}
+          {instruments.length} instrumentos ad-hoc catalogados.
         </p>
       </div>
-      <CatalogGrid instruments={instruments} dict={dict.catalogPage} />
+      <CatalogGrid instruments={instruments} />
     </Container>
   );
 }

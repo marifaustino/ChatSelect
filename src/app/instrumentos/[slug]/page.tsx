@@ -10,8 +10,6 @@ import { SourceSection } from "@/components/instrument/source-section";
 import { DualApplicationNotice } from "@/components/instrument/dual-application-notice";
 import { getAllInstruments } from "@/lib/catalog/instruments-repository";
 import { findInstrumentBySlug } from "@/lib/catalog/catalog-service";
-import { getLocale } from "@/i18n/get-locale";
-import { getDictionary } from "@/i18n/dictionaries";
 
 interface InstrumentPageProps {
   params: Promise<{ slug: string }>;
@@ -37,35 +35,30 @@ export default async function InstrumentPage({ params }: InstrumentPageProps) {
   const { slug } = await params;
   const instrument = findInstrumentBySlug(getAllInstruments(), slug);
   if (!instrument) notFound();
-  const dict = getDictionary(await getLocale()).instrumentDetail;
 
   return (
     <Container className="max-w-3xl space-y-8 py-8">
       <Link href="/" className="text-muted-foreground text-sm hover:underline">
-        &larr; {dict.backLink}
+        &larr; Voltar aos instrumentos
       </Link>
       <InstrumentHeader instrument={instrument} />
-      {instrument.isDualApplication && <DualApplicationNotice dict={dict} />}
-      <InstrumentMeta instrument={instrument} dict={dict} />
+      {instrument.isDualApplication && <DualApplicationNotice />}
+      <InstrumentMeta instrument={instrument} />
       <TextSection
-        title={dict.sectionInstrumentDescription}
+        title="Descrição do instrumento"
         text={instrument.instrumentDescription}
       />
-      <TextSection title={dict.sectionScoring} text={instrument.scoring} />
+      <TextSection title="Como pontuar" text={instrument.scoring} />
+      <TextSection title="Confiabilidade" text={instrument.reliability} />
       <TextSection
-        title={dict.sectionReliability}
-        text={instrument.reliability}
-      />
-      <TextSection
-        title={dict.sectionReferenceResult}
+        title="Resultado de referência"
         text={instrument.referenceResult}
       />
       <ProsConsSection
         advantages={instrument.advantages}
         limitations={instrument.limitations}
-        dict={dict}
       />
-      <SourceSection source={instrument.source} dict={dict} />
+      <SourceSection source={instrument.source} />
     </Container>
   );
 }

@@ -8,7 +8,14 @@ import {
   hrefToggleFacet,
   type CatalogUrlState,
 } from "@/lib/catalog/catalog-url";
-import type { Dictionary } from "@/i18n/dictionaries";
+
+const FACET_LABELS: Record<FacetKey, string> = {
+  category: "Categoria",
+  originalLanguage: "Idioma",
+  communicationModality: "Modalidade de comunicação",
+  attribute: "Atributos",
+  qualityAttribute: "Atributos de qualidade",
+};
 
 function ToggleOption({
   href,
@@ -46,28 +53,22 @@ export function FilterSidebar({
   basePath,
   state,
   facetOptions,
-  dict,
-  filtersHeading,
-  clearAll,
 }: {
   basePath: string;
   state: CatalogUrlState;
   facetOptions: Record<FacetKey, string[]>;
-  dict: Dictionary["facets"];
-  filtersHeading: string;
-  clearAll: string;
 }) {
   return (
     <aside className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-muted-foreground text-sm font-semibold tracking-wide uppercase">
-          {filtersHeading}
+          Filtros
         </h2>
         <Link
           href={hrefClearAll(basePath)}
           className="text-primary hover:text-primary-hover text-xs hover:underline"
         >
-          {clearAll}
+          Limpar
         </Link>
       </div>
       {FACET_KEYS.map((key) => {
@@ -76,7 +77,7 @@ export function FilterSidebar({
         return (
           <Card key={key}>
             <CardHeader>
-              <CardTitle className="text-sm">{dict[key]}</CardTitle>
+              <CardTitle className="text-sm">{FACET_LABELS[key]}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-1 pt-0">
               {options.map((option) => {

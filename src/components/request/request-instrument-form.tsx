@@ -7,7 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import type { Dictionary } from "@/i18n/dictionaries";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xgawwqjl";
 
@@ -21,13 +20,11 @@ const errorClasses = "border-destructive focus-visible:ring-destructive";
  * application/json header. Required-field validation is done by hand
  * (rather than relying on the browser's native `required` tooltip) so the
  * error is a clearly visible, styled message next to the field. */
-export function RequestInstrumentForm({
-  dict,
-}: {
-  dict: Dictionary["requestPage"];
-}) {
+export function RequestInstrumentForm() {
   const [status, setStatus] = useState<Status>("idle");
-  const [fieldErrors, setFieldErrors] = useState<Set<RequiredField>>(new Set());
+  const [fieldErrors, setFieldErrors] = useState<Set<RequiredField>>(
+    new Set(),
+  );
 
   function clearFieldError(field: RequiredField) {
     setFieldErrors((current) => {
@@ -79,7 +76,7 @@ export function RequestInstrumentForm({
     return (
       <Card className="border-emerald-500/40 bg-emerald-500/10">
         <CardHeader>
-          <CardTitle>{dict.successMessage}</CardTitle>
+          <CardTitle>Obrigado! Sua solicitação foi enviada.</CardTitle>
         </CardHeader>
       </Card>
     );
@@ -96,19 +93,23 @@ export function RequestInstrumentForm({
         className="hidden"
         aria-hidden="true"
       />
-      <input type="hidden" name="_subject" value={dict.emailSubject} />
+      <input
+        type="hidden"
+        name="_subject"
+        value="Nova solicitação de instrumento — ChatSelect"
+      />
 
       <div className="space-y-1.5">
         <Label htmlFor="name">
-          {dict.formNameLabel}{" "}
+          Nome do instrumento{" "}
           <span className="text-muted-foreground font-normal">
-            ({dict.requiredBadge})
+            (obrigatório)
           </span>
         </Label>
         <Input
           id="name"
           name="name"
-          placeholder={dict.formNamePlaceholder}
+          placeholder="Ex.: System Usability Scale (SUS)"
           aria-required="true"
           aria-invalid={fieldErrors.has("name")}
           aria-describedby={fieldErrors.has("name") ? "name-error" : undefined}
@@ -117,43 +118,36 @@ export function RequestInstrumentForm({
         />
         {fieldErrors.has("name") && (
           <p id="name-error" role="alert" className="text-destructive text-sm">
-            {dict.requiredFieldError}
+            Preencha este campo obrigatório.
           </p>
         )}
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="authors">{dict.formAuthorsLabel}</Label>
-        <p className="text-muted-foreground text-xs">{dict.formAuthorsHelp}</p>
-        <Input
-          id="authors"
-          name="authors"
-          placeholder={dict.formAuthorsPlaceholder}
-        />
+        <Label htmlFor="authors">Autores / referência</Label>
+        <p className="text-muted-foreground text-xs">
+          Se souber, cite os autores e o ano
+        </p>
+        <Input id="authors" name="authors" placeholder="Ex.: Brooke, J. (1996)" />
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="link">{dict.formLinkLabel}</Label>
-        <p className="text-muted-foreground text-xs">{dict.formLinkHelp}</p>
-        <Input
-          id="link"
-          name="link"
-          type="url"
-          placeholder={dict.formLinkPlaceholder}
-        />
+        <Label htmlFor="link">Link do artigo ou do instrumento</Label>
+        <p className="text-muted-foreground text-xs">Cole a URL, se tiver</p>
+        <Input id="link" name="link" type="url" placeholder="https://" />
       </div>
 
       <div className="space-y-1.5">
         <Label htmlFor="description">
-          {dict.formDescriptionLabel}{" "}
+          Breve descrição do que o instrumento avalia{" "}
           <span className="text-muted-foreground font-normal">
-            ({dict.requiredBadge})
+            (obrigatório)
           </span>
         </Label>
         <Textarea
           id="description"
           name="description"
-          placeholder={dict.formDescriptionPlaceholder}
+          placeholder="Ex.: Escala de 10 itens para medir a usabilidade percebida de um sistema."
           rows={4}
           aria-required="true"
           aria-invalid={fieldErrors.has("description")}
@@ -169,40 +163,43 @@ export function RequestInstrumentForm({
             role="alert"
             className="text-destructive text-sm"
           >
-            {dict.requiredFieldError}
+            Preencha este campo obrigatório.
           </p>
         )}
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="email">{dict.formEmailLabel}</Label>
-        <p className="text-muted-foreground text-xs">{dict.formEmailHelp}</p>
+        <Label htmlFor="email">Seu e-mail</Label>
+        <p className="text-muted-foreground text-xs">
+          Opcional, caso queira retorno sobre sua sugestão
+        </p>
         <Input
           id="email"
           name="email"
           type="email"
-          placeholder={dict.formEmailPlaceholder}
+          placeholder="voce@email.com"
         />
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="notes">{dict.formNotesLabel}</Label>
+        <Label htmlFor="notes">Observações adicionais</Label>
         <Textarea
           id="notes"
           name="notes"
-          placeholder={dict.formNotesPlaceholder}
+          placeholder="Qualquer outra informação relevante..."
           rows={3}
         />
       </div>
 
       {status === "error" && (
         <p role="alert" className="text-destructive text-sm">
-          {dict.errorMessage}
+          Não foi possível enviar sua solicitação. Tente novamente em
+          instantes.
         </p>
       )}
 
       <Button type="submit" disabled={status === "submitting"}>
-        {status === "submitting" ? dict.submittingButton : dict.submitButton}
+        {status === "submitting" ? "Enviando…" : "Enviar solicitação"}
       </Button>
     </form>
   );

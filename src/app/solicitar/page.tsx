@@ -1,32 +1,28 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { RequestInstrumentForm } from "@/components/request/request-instrument-form";
-import { getLocale } from "@/i18n/get-locale";
-import { getDictionary } from "@/i18n/dictionaries";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dict = getDictionary(await getLocale());
-  return {
-    title: dict.requestPage.metaTitle,
-    description: dict.requestPage.metaDescription,
-  };
-}
+export const metadata: Metadata = {
+  title: "Solicitar instrumento",
+  description:
+    "Sugira a inclusão de um novo instrumento de avaliação no catálogo.",
+};
 
-export default async function RequestInstrumentPage() {
-  const dict = getDictionary(await getLocale());
-
+export default function RequestInstrumentPage() {
   return (
     <Container className="max-w-xl space-y-6 py-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">
-          {dict.requestPage.heading}
+          Solicitar instrumento
         </h1>
         <p className="text-muted-foreground text-sm">
-          {dict.requestPage.introText}
+          Conhece um instrumento de avaliação usado em pesquisas sobre
+          chatbots educacionais que ainda não está no catálogo? Preencha o
+          formulário abaixo.
         </p>
       </div>
 
-      <RequestInstrumentForm dict={dict.requestPage} />
+      <RequestInstrumentForm />
     </Container>
   );
 }

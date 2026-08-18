@@ -12,17 +12,12 @@ import {
   sortByTitle,
 } from "@/lib/catalog/catalog-service";
 import { catalogQueryFromSearchParams } from "@/core/models/catalog-query";
-import { getLocale } from "@/i18n/get-locale";
-import { getDictionary } from "@/i18n/dictionaries";
-import { formatMessage } from "@/i18n/format-message";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dict = getDictionary(await getLocale());
-  return {
-    title: dict.catalogPage.metaTitle,
-    description: dict.catalogPage.metaDescription,
-  };
-}
+export const metadata: Metadata = {
+  title: "Instrumentos",
+  description:
+    "Catálogo pesquisável de instrumentos de avaliação usados em pesquisas sobre chatbots educacionais.",
+};
 
 type RawSearchParams = Record<string, string | string[] | undefined>;
 
@@ -32,7 +27,6 @@ export default async function CatalogPage({
   searchParams: Promise<RawSearchParams>;
 }) {
   const query = catalogQueryFromSearchParams(await searchParams);
-  const dict = getDictionary(await getLocale());
 
   // Only Adaptado/Original instruments are shown here (and match the search
   // bar). Ad-hoc instruments are exclusive to the dedicated /ad-hoc page.
@@ -53,31 +47,26 @@ export default async function CatalogPage({
           basePath="/"
           state={query}
           facetOptions={facetOptions}
-          dict={dict.facets}
-          filtersHeading={dict.catalogPage.filtersHeading}
-          clearAll={dict.catalogPage.clearAll}
         />
         <div className="flex flex-col gap-6">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">
-              {dict.catalogPage.heading}
+              Instrumentos de avaliação
             </h1>
             <p className="text-muted-foreground text-sm">
-              {formatMessage(dict.catalogPage.subtitleTemplate, {
-                count: adapted.length,
-              })}
+              {adapted.length} instrumentos com origem em fontes psicométricas
+              validadas, usados em pesquisas sobre chatbots educacionais —
+              questionários, escalas, entrevistas e rubricas.
             </p>
           </div>
-          <SearchBar action="/" state={query} dict={dict.catalogPage} />
+          <SearchBar action="/" state={query} />
           <p className="text-muted-foreground text-sm">
-            {formatMessage(
-              filtered.length === 1
-                ? dict.catalogPage.resultsCountOne
-                : dict.catalogPage.resultsCountOther,
-              { count: filtered.length },
-            )}
+            {filtered.length}{" "}
+            {filtered.length === 1
+              ? "instrumento encontrado"
+              : "instrumentos encontrados"}
           </p>
-          <CatalogGrid instruments={filtered} dict={dict.catalogPage} />
+          <CatalogGrid instruments={filtered} />
         </div>
       </Container>
     </>

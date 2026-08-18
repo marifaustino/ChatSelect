@@ -3,80 +3,98 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { getAllInstruments } from "@/lib/catalog/instruments-repository";
 import { filterByClassification } from "@/lib/catalog/catalog-service";
-import { getLocale } from "@/i18n/get-locale";
-import { getDictionary } from "@/i18n/dictionaries";
-import { formatMessage } from "@/i18n/format-message";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dict = getDictionary(await getLocale());
-  return {
-    title: dict.aboutPage.metaTitle,
-    description: dict.aboutPage.metaDescription,
-  };
-}
+export const metadata: Metadata = {
+  title: "Sobre",
+  description: "Sobre o ChatSelect e como o catálogo foi construído.",
+};
 
-export default async function AboutPage() {
+export default function AboutPage() {
   const all = getAllInstruments();
   const adHocCount = filterByClassification(all, "ad-hoc").length;
   const adaptedCount = all.length - adHocCount;
-  const dict = getDictionary(await getLocale());
-  const about = dict.aboutPage;
 
   return (
     <Container className="max-w-3xl space-y-6 py-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">{about.heading}</h1>
-        <p className="text-muted-foreground">{about.subtitle}</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Sobre o ChatSelect
+        </h1>
+        <p className="text-muted-foreground">
+          Um catálogo de instrumentos de avaliação para pesquisa em chatbots
+          educacionais.
+        </p>
       </div>
 
       <section className="space-y-3 text-sm leading-relaxed">
-        <h2 className="text-xl font-semibold">{about.problemHeading}</h2>
-        <p>{about.problemBody}</p>
-      </section>
-
-      <section className="space-y-3 text-sm leading-relaxed">
-        <h2 className="text-xl font-semibold">{about.catalogHeading}</h2>
-        <p>{formatMessage(about.catalogBodyTemplate, { count: all.length })}</p>
+        <h2 className="text-xl font-semibold">O problema</h2>
         <p>
-          {formatMessage(about.originScreeningTemplate, {
-            adaptedCount,
-            adHocCount,
-          })}
-          <Link
-            href="/ad-hoc"
-            className="text-primary hover:text-primary-hover hover:underline"
-          >
-            {dict.nav.adHoc}
-          </Link>
-          {about.originScreeningMiddle}
-          <Link
-            href="/ad-hoc"
-            className="text-primary hover:text-primary-hover hover:underline"
-          >
-            {dict.nav.adHoc}
-          </Link>
-          {about.originScreeningSuffix}
+          Pesquisadores que avaliam chatbots educacionais frequentemente
+          precisam escolher, entre dezenas de questionários, escalas,
+          entrevistas e rubricas espalhados pela literatura, qual instrumento
+          usar para medir usabilidade, satisfação, engajamento, confiança ou
+          efetividade pedagógica. Essa escolha é difícil quando não há um
+          lugar único reunindo essas opções lado a lado.
         </p>
       </section>
 
       <section className="space-y-3 text-sm leading-relaxed">
-        <h2 className="text-xl font-semibold">{about.howToUseHeading}</h2>
+        <h2 className="text-xl font-semibold">O catálogo</h2>
         <p>
-          {about.howToUseIntro}
+          O ChatSelect reúne {all.length} instrumentos extraídos de artigos
+          científicos que avaliaram chatbots em contextos educacionais. Cada
+          ficha documenta autores, idioma original, traduções, amostra do
+          estudo, número de itens, formato de resposta, forma de pontuação,
+          confiabilidade, vantagens, limitações e a fonte bibliográfica
+          completa.
+        </p>
+        <p>
+          Cada instrumento passou por uma triagem quanto à sua origem:
+          instrumentos com fonte psicométrica validada e citável, como a SUS
+          ou o TAM, compõem a lista principal ({adaptedCount} instrumentos);
+          já os instrumentos ad-hoc ({adHocCount} instrumentos) — criados
+          pelos próprios autores de um estudo especificamente para aquela
+          pesquisa, geralmente sem dados formais de confiabilidade — ficam
+          reunidos separadamente na aba{" "}
+          <Link
+            href="/ad-hoc"
+            className="text-primary hover:text-primary-hover hover:underline"
+          >
+            Ad-hoc
+          </Link>
+          . A página inicial mostra apenas os instrumentos com origem
+          validada; a lista completa de instrumentos ad-hoc fica na aba{" "}
+          <Link
+            href="/ad-hoc"
+            className="text-primary hover:text-primary-hover hover:underline"
+          >
+            Ad-hoc
+          </Link>
+          .
+        </p>
+      </section>
+
+      <section className="space-y-3 text-sm leading-relaxed">
+        <h2 className="text-xl font-semibold">Como usar</h2>
+        <p>
+          Navegue pela lista de instrumentos na aba{" "}
           <Link
             href="/"
             className="text-primary hover:text-primary-hover hover:underline"
           >
-            {dict.nav.catalog}
+            Catálogo
           </Link>
-          {about.howToUseMiddle}
+          , busque por nome, autor ou descrição, ou filtre por categoria,
+          idioma, modalidade de comunicação e atributos. Clique em um
+          instrumento para ver a ficha completa. Se você conhece um
+          instrumento que não está no catálogo, sugira sua inclusão na aba{" "}
           <Link
             href="/solicitar"
             className="text-primary hover:text-primary-hover hover:underline"
           >
-            {dict.nav.request}
+            Solicitar instrumento
           </Link>
-          {about.howToUseSuffix}
+          .
         </p>
       </section>
     </Container>

@@ -13,7 +13,7 @@ ChatSelect ajuda pesquisadores a escolher qual instrumento usar para avaliar um 
 - **Zod** para validação
 - **Vitest** para testes
 - **Formspree** para o formulário de solicitação de instrumentos (sem backend próprio), enviado via `fetch` (sem reload/redirect da página)
-- **i18n próprio** via dicionários TypeScript por idioma (sem serviço de tradução externo) — ver seção [Internacionalização](#internacionalização)
+- **Tradução nativa do navegador** (nenhuma dependência) — ver seção [Internacionalização](#internacionalização)
 
 ## Arquitetura
 
@@ -66,26 +66,11 @@ A aba "Solicitar instrumento" (`/solicitar`) é um formulário nativo (`src/comp
 
 ## Internacionalização
 
-O ChatSelect **não** usa mais o widget clássico do Google Translate (descontinuado para uso comercial desde 2019, instável e ruim para SEO). Em vez disso, a interface usa um sistema de i18n próprio, sem dependência de serviço externo:
+Português é o único idioma nativo — tanto a interface quanto os dados das 41 fichas de instrumentos. Não há nenhum widget de tradução no site (nem dicionários próprios, nem Google Translate embutido). A tradução é feita pelo **tradutor nativo do navegador**: Chrome, Edge e outros navegadores baseados em Chromium detectam automaticamente que a página está em português (via o atributo `lang="pt-BR"` na tag `<html>`, definido em `src/app/layout.tsx`) e, se o idioma do navegador for diferente, oferecem sozinhos o popup "Traduzir esta página?" na barra de endereço — sem nenhum código, script ou dependência externa no projeto.
 
-- **Escopo**: apenas a interface (navegação, botões, filtros, textos estáticos das páginas Sobre/Ad-hoc/Solicitar) é traduzida. Os dados das 41 fichas de instrumentos (título, descrição, autores, vantagens, limitações, fonte etc.) **nunca** são traduzidos — sempre renderizam em português, independentemente do idioma selecionado, seguindo o mesmo princípio do projeto irmão (Supabase) de nunca traduzir os dados de pesquisa subjacentes.
-- **10 idiomas**: português (`pt-BR`) e inglês (`en`) são nativos, escritos e revisados manualmente. Os outros 8 — espanhol, francês, alemão, italiano, chinês simplificado, japonês, russo e árabe — foram traduzidos diretamente (sem API/serviço de tradução, sem custo recorrente, sem nova dependência de runtime).
-- **Árabe** usa layout RTL (`dir="rtl"` no `<html>`, calculado automaticamente por `isRtlLocale()`).
-- **Persistência**: cookie `locale`, sem prefixo de idioma na URL. A troca de idioma é uma Server Action (`src/i18n/actions.ts`) que grava o cookie e redireciona — o seletor de idioma (`LocaleSwitcher`) não depende de JavaScript no cliente.
+Já testamos e descartamos duas alternativas nesta mesma base antes de chegar aqui: um i18n próprio com dicionários por idioma (bom resultado, mas complexo demais pra manter) e o widget clássico do Google Translate embutido na navbar (visualmente indesejado e desnecessário, já que a tradução nativa do navegador cobre o mesmo caso de uso sem nenhuma UI própria). Não há `<meta name="google" content="notranslate">` nem `translate="no"` em nenhum lugar do código, que bloqueariam essa detecção automática.
 
-Arquitetura:
-
-```
-src/i18n/locales.ts              ← idiomas suportados, labels nativos, RTL
-src/i18n/get-locale.ts           ← lê o cookie `locale` (server-only)
-src/i18n/actions.ts              ← Server Action que grava o cookie e redireciona
-src/i18n/format-message.ts       ← interpolação de {tokens} nas strings
-src/i18n/dictionaries/types.ts   ← interface Dictionary (contrato compartilhado)
-src/i18n/dictionaries/*.ts       ← uma implementação por idioma
-src/i18n/dictionaries/index.ts   ← getDictionary(locale)
-```
-
-Para adicionar um novo idioma: acrescente o código a `SUPPORTED_LOCALES` e um rótulo a `LOCALE_LABELS` em `src/i18n/locales.ts`, crie `src/i18n/dictionaries/<locale>.ts` implementando `Dictionary`, e registre-o em `src/i18n/dictionaries/index.ts`. O TypeScript aponta qualquer campo faltante em tempo de compilação.
+**Não foi possível verificar via `curl`** que o popup de tradução nativa aparece de fato (isso depende do motor de tradução do navegador, que só roda no cliente) — confirme manualmente abrindo o site em uma aba anônima com o idioma do navegador diferente de português.
 
 ## Scripts
 
