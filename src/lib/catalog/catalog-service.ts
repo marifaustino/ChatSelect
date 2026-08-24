@@ -21,8 +21,8 @@ const FACET_FIELD_MAP: Record<FacetKey, keyof Instrument> = {
   qualityAttribute: "qualityAttributes",
 };
 
-/** Splits a comma-separated multi-value field (e.g. "Functional Adequacy,
- * Usability") into trimmed individual values. Fields with no comma just
+/** Splits a comma-separated multi-value field (e.g. "Adequação Funcional,
+ * Usabilidade") into trimmed individual values. Fields with no comma just
  * split into a one-element array, so this is safe to apply uniformly
  * across every facet, including single-valued ones. */
 function splitMultiValue(value: string): string[] {
@@ -95,7 +95,7 @@ export function filterByClassification(
 /** Unique, sorted, non-null values of a given Instrument field — used to
  * build filter option lists from whatever subset of instruments is
  * currently in scope (e.g. adapted-only on the home page). Comma-separated
- * multi-value fields (e.g. "Functional Adequacy, Usability") are split so
+ * multi-value fields (e.g. "Adequação Funcional, Usabilidade") are split so
  * each individual value becomes its own option instead of one combined
  * option per unique string. */
 export function getUniqueValues(

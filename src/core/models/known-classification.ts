@@ -15,7 +15,7 @@ export const KNOWN_ADAPTED_SHEET_NAMES = [
   "UEQ-S",
   "OSLQ",
   "CHISM",
-  "Feedback_Quality_Rubric",
+  "PFQCS",
   "CSAT",
   "HLS",
   "LMS",
@@ -23,15 +23,15 @@ export const KNOWN_ADAPTED_SHEET_NAMES = [
   "METI",
   "NES",
   "NPS",
-  "ECM_KM_AlSharafi_ChatGPT",
-  "ECM_Bhattacherjee_ChatGPT",
-  "BigTwo_Abele_Bruckmuller",
+  "ECM-KM",
+  "ECM",
+  "BigTwo",
   "SPS",
-  "Task_Resolution_Rubric",
+  "TRR",
   "TAM_Davis",
   "UES",
   "LRSS_WorkValues",
-  "WFC_SES_WorkStudy",
+  "WFC-SES",
 ] as const;
 
 export const KNOWN_AD_HOC_SHEET_NAMES = [
@@ -47,6 +47,6 @@ export const KNOWN_AD_HOC_SHEET_NAMES = [
   "Eval_Quest_Fuzzy_Chatbot",
   "Tech_Acceptance_Questionnaire",
   "SemiStructInterview_SDT",
-  "UXQ_AdHoc_Tzitziou",
+  "UXQ_AdHoc",
   "User_Perception_Quest",
 ] as const;

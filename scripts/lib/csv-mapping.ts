@@ -90,7 +90,7 @@ export function detectClassificationFromText(
  * richer judgment than a text substring can: some ad-hoc instruments never
  * literally say "ad-hoc" (e.g. Heuristic_Set_Chatbots), and some
  * adapted/original ones mention "ad hoc" only in passing about a reduced
- * version used in one application (e.g. CHISM, WFC_SES_WorkStudy). So the
+ * version used in one application (e.g. CHISM, WFC-SES). So the
  * fixed list is authoritative for the 41 known sheets; text detection is
  * only a heuristic guess for instruments added later that aren't in it yet.
  */
