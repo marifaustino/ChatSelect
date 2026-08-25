@@ -36,10 +36,20 @@ export default async function InstrumentPage({ params }: InstrumentPageProps) {
   const instrument = findInstrumentBySlug(getAllInstruments(), slug);
   if (!instrument) notFound();
 
+  // Ad-hoc instruments are only ever linked from /ad-hoc (the home catalog
+  // excludes them), so classification alone tells us where "back" belongs.
+  const isAdHoc = instrument.classification === "ad-hoc";
+
   return (
     <Container className="max-w-3xl space-y-8 py-8">
-      <Link href="/" className="text-muted-foreground text-sm hover:underline">
-        &larr; Voltar aos instrumentos
+      <Link
+        href={isAdHoc ? "/ad-hoc" : "/"}
+        className="text-muted-foreground text-sm hover:underline"
+      >
+        &larr;{" "}
+        {isAdHoc
+          ? "Voltar aos instrumentos Ad Hoc"
+          : "Voltar aos instrumentos"}
       </Link>
       <InstrumentHeader instrument={instrument} />
       {instrument.isDualApplication && <DualApplicationNotice />}

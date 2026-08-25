@@ -8,9 +8,9 @@ import {
 } from "@/lib/catalog/catalog-service";
 
 export const metadata: Metadata = {
-  title: "Ad-hoc",
+  title: "Ad Hoc",
   description:
-    "Instrumentos ad-hoc: questionários criados pelos próprios autores dos estudos, sem derivar de uma fonte psicométrica validada.",
+    "Instrumentos Ad Hoc: questionários criados pelos próprios autores dos estudos, sem derivar de uma fonte psicométrica validada.",
 };
 
 export default function AdHocPage() {
@@ -22,10 +22,10 @@ export default function AdHocPage() {
     <Container className="space-y-6 py-8">
       <div className="max-w-3xl space-y-3">
         <h1 className="text-2xl font-bold tracking-tight">
-          Instrumentos ad-hoc
+          Instrumentos Ad Hoc
         </h1>
         <p className="text-muted-foreground text-sm leading-relaxed">
-          Instrumentos ad-hoc são questionários, escalas ou roteiros criados
+          Instrumentos Ad Hoc são questionários, escalas ou roteiros criados
           pelos próprios autores de um estudo especificamente para aquela
           pesquisa, sem derivar de uma fonte psicométrica validada e citável.
           Isso significa que, na maioria dos casos, não há dados formais de
@@ -35,7 +35,7 @@ export default function AdHocPage() {
           foram aplicados.
         </p>
         <p className="text-muted-foreground text-sm">
-          {instruments.length} instrumentos ad-hoc catalogados.
+          {instruments.length} instrumentos Ad Hoc catalogados.
         </p>
       </div>
       <CatalogGrid instruments={instruments} />

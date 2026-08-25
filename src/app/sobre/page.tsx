@@ -52,7 +52,7 @@ export default function AboutPage() {
           Cada instrumento passou por uma triagem quanto à sua origem:
           instrumentos com fonte psicométrica validada e citável, como a SUS
           ou o TAM, compõem a lista principal ({adaptedCount} instrumentos);
-          já os instrumentos ad-hoc ({adHocCount} instrumentos) — criados
+          já os instrumentos Ad Hoc ({adHocCount} instrumentos) — criados
           pelos próprios autores de um estudo especificamente para aquela
           pesquisa, geralmente sem dados formais de confiabilidade — ficam
           reunidos separadamente na aba{" "}
@@ -60,15 +60,15 @@ export default function AboutPage() {
             href="/ad-hoc"
             className="text-primary hover:text-primary-hover hover:underline"
           >
-            Ad-hoc
+            Ad Hoc
           </Link>
           . A página inicial mostra apenas os instrumentos com origem
-          validada; a lista completa de instrumentos ad-hoc fica na aba{" "}
+          validada; a lista completa de instrumentos Ad Hoc fica na aba{" "}
           <Link
             href="/ad-hoc"
             className="text-primary hover:text-primary-hover hover:underline"
           >
-            Ad-hoc
+            Ad Hoc
           </Link>
           .
         </p>
