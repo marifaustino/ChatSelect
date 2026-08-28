@@ -16,9 +16,11 @@ export default function RequestInstrumentPage() {
           Solicitar instrumento
         </h1>
         <p className="text-muted-foreground text-sm">
-          Conhece um instrumento de avaliação usado em pesquisas sobre
-          chatbots educacionais que ainda não está no catálogo? Preencha o
-          formulário abaixo.
+          Conhece um instrumento de avaliação (validado ou ad hoc) usado em
+          pesquisas sobre chatbots educacionais que ainda não está no nosso
+          catálogo? Preencha o formulário abaixo. Sua sugestão será revisada
+          por nossa equipe antes de ser adicionada. Se informar seu e-mail,
+          você recebe um retorno sobre o status.
         </p>
       </div>
 

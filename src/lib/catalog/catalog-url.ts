@@ -45,6 +45,29 @@ export function hrefClearAll(basePath: string): string {
   return basePath;
 }
 
+/** The current list URL (base path + active filters/search), so a link to
+ * an instrument's detail page can carry back exactly what the user had
+ * applied when they leave the listing. */
+export function currentListHref(
+  basePath: string,
+  state: CatalogUrlState,
+): string {
+  return toHref(basePath, buildParams(state));
+}
+
+/** True only if `from` is `parentHref` itself or `parentHref` plus a query
+ * string — never a different route. Used to validate the `?from=` param on
+ * an instrument detail page before using it as the "back" target, so an
+ * ad-hoc instrument can't be tricked into linking back to `/` (or anywhere
+ * else) via a crafted URL. */
+export function isValidListHref(
+  from: string | undefined,
+  parentHref: string,
+): from is string {
+  if (!from) return false;
+  return from === parentHref || from.startsWith(`${parentHref}?`);
+}
+
 export function hasActiveFilters(state: CatalogUrlState): boolean {
   return Boolean(
     state.q || FACET_KEYS.some((key) => (state[key]?.length ?? 0) > 0),

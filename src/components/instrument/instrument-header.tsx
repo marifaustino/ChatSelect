@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { categoryBadgeClasses } from "@/lib/catalog/category-colors";
 import type { Instrument } from "@/core/models/instrument";
 
 export function InstrumentHeader({ instrument }: { instrument: Instrument }) {
@@ -7,7 +8,9 @@ export function InstrumentHeader({ instrument }: { instrument: Instrument }) {
       <div className="flex flex-wrap items-center gap-2">
         <Badge variant="secondary">{instrument.sheetName}</Badge>
         {instrument.category && (
-          <Badge variant="muted">{instrument.category}</Badge>
+          <Badge className={categoryBadgeClasses(instrument.category)}>
+            {instrument.category}
+          </Badge>
         )}
       </div>
       <h1 className="text-3xl font-bold tracking-tight">{instrument.title}</h1>

@@ -25,6 +25,9 @@ export function RequestInstrumentForm() {
   const [fieldErrors, setFieldErrors] = useState<Set<RequiredField>>(
     new Set(),
   );
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const canSubmit = name.trim() !== "" && description.trim() !== "";
 
   function clearFieldError(field: RequiredField) {
     setFieldErrors((current) => {
@@ -114,7 +117,10 @@ export function RequestInstrumentForm() {
           aria-invalid={fieldErrors.has("name")}
           aria-describedby={fieldErrors.has("name") ? "name-error" : undefined}
           className={cn(fieldErrors.has("name") && errorClasses)}
-          onChange={() => clearFieldError("name")}
+          onChange={(e) => {
+            setName(e.target.value);
+            clearFieldError("name");
+          }}
         />
         {fieldErrors.has("name") && (
           <p id="name-error" role="alert" className="text-destructive text-sm">
@@ -155,7 +161,10 @@ export function RequestInstrumentForm() {
             fieldErrors.has("description") ? "description-error" : undefined
           }
           className={cn(fieldErrors.has("description") && errorClasses)}
-          onChange={() => clearFieldError("description")}
+          onChange={(e) => {
+            setDescription(e.target.value);
+            clearFieldError("description");
+          }}
         />
         {fieldErrors.has("description") && (
           <p
@@ -198,7 +207,7 @@ export function RequestInstrumentForm() {
         </p>
       )}
 
-      <Button type="submit" disabled={status === "submitting"}>
+      <Button type="submit" disabled={status === "submitting" || !canSubmit}>
         {status === "submitting" ? "Enviando…" : "Enviar solicitação"}
       </Button>
     </form>

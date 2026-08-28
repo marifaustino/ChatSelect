@@ -12,6 +12,7 @@ import {
   sortByTitle,
 } from "@/lib/catalog/catalog-service";
 import { catalogQueryFromSearchParams } from "@/core/models/catalog-query";
+import { currentListHref } from "@/lib/catalog/catalog-url";
 
 export const metadata: Metadata = {
   title: "Instrumentos",
@@ -36,12 +37,6 @@ export default async function CatalogPage({
 
   return (
     <>
-      <Container className="flex justify-center py-10 sm:py-14">
-        <HeaderIllustration
-          aria-hidden="true"
-          className="text-primary h-28 w-auto sm:h-36"
-        />
-      </Container>
       <Container className="grid gap-8 py-8 lg:grid-cols-[260px_1fr]">
         <FilterSidebar
           basePath="/"
@@ -49,15 +44,25 @@ export default async function CatalogPage({
           facetOptions={facetOptions}
         />
         <div className="flex flex-col gap-6">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">
-              Instrumentos de avaliação
-            </h1>
-            <p className="text-muted-foreground text-sm">
-              {adapted.length} instrumentos com origem em fontes psicométricas
-              validadas, usados em pesquisas sobre chatbots educacionais —
-              questionários, escalas, entrevistas e rubricas.
-            </p>
+          <div className="flex items-start gap-4">
+            <HeaderIllustration
+              aria-hidden="true"
+              className="text-primary hidden h-12 w-auto shrink-0 sm:block"
+            />
+            <div>
+              <p className="text-primary text-xs font-semibold tracking-wide uppercase">
+                Instrumentos validados
+              </p>
+              <h1 className="text-2xl font-bold tracking-tight">
+                Instrumentos de avaliação
+              </h1>
+              <p className="text-muted-foreground text-sm">
+                {adapted.length} instrumentos com origem em fontes
+                psicométricas validadas, usados em pesquisas sobre chatbots
+                educacionais — questionários, escalas, entrevistas e
+                rubricas.
+              </p>
+            </div>
           </div>
           <SearchBar action="/" state={query} />
           <p className="text-muted-foreground text-sm">
@@ -66,7 +71,10 @@ export default async function CatalogPage({
               ? "instrumento encontrado"
               : "instrumentos encontrados"}
           </p>
-          <CatalogGrid instruments={filtered} />
+          <CatalogGrid
+            instruments={filtered}
+            backHref={currentListHref("/", query)}
+          />
         </div>
       </Container>
     </>

@@ -8,6 +8,7 @@ import {
   hrefToggleFacet,
   type CatalogUrlState,
 } from "@/lib/catalog/catalog-url";
+import { categorySolidClasses } from "@/lib/catalog/category-colors";
 
 const FACET_LABELS: Record<FacetKey, string> = {
   category: "Categoria",
@@ -21,10 +22,13 @@ function ToggleOption({
   href,
   active,
   label,
+  solidClasses,
 }: {
   href: string;
   active: boolean;
   label: string;
+  /** Border+fill classes applied when checked; defaults to primary blue. */
+  solidClasses?: string;
 }) {
   return (
     <Link
@@ -38,8 +42,10 @@ function ToggleOption({
       <span
         aria-hidden="true"
         className={cn(
-          "border-input flex size-4 shrink-0 items-center justify-center rounded-sm border",
-          active && "border-primary bg-primary text-primary-foreground",
+          "border-input flex size-4 shrink-0 items-center justify-center rounded-sm border-2 transition-colors",
+          active
+            ? (solidClasses ?? "border-primary bg-primary text-primary-foreground")
+            : "hover:border-primary",
         )}
       >
         {active && <Check className="size-3" />}
@@ -88,6 +94,9 @@ export function FilterSidebar({
                     href={hrefToggleFacet(basePath, state, key, option)}
                     active={active}
                     label={option}
+                    solidClasses={
+                      key === "category" ? categorySolidClasses(option) : undefined
+                    }
                   />
                 );
               })}
