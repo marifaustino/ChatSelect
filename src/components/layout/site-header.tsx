@@ -20,7 +20,7 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-primary-hover sticky top-0 z-40">
+    <header className="sticky top-0 z-40 bg-[#0F172A]">
       <Container className="flex items-center justify-between gap-4 py-3">
         <Link href="/" className="leading-tight" onClick={() => setOpen(false)}>
           <span className="block text-lg font-semibold tracking-tight text-white">
