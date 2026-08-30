@@ -6,7 +6,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { categoryBadgeClasses } from "@/lib/catalog/category-colors";
+import { cn } from "@/lib/utils";
+import { categorySolidClasses } from "@/lib/catalog/category-colors";
 import type { Instrument } from "@/core/models/instrument";
 
 export function InstrumentCard({
@@ -15,7 +16,7 @@ export function InstrumentCard({
 }: {
   instrument: Instrument;
   /** Current list URL (filters/search included) — carried as `?from=` so
-   * the detail page's breadcrumb can return here with filters intact. */
+   * the detail page's back link can return here with filters intact. */
   backHref?: string;
 }) {
   const href = backHref
@@ -23,10 +24,15 @@ export function InstrumentCard({
     : `/instrumentos/${instrument.slug}`;
   return (
     <Link href={href} className="group block h-full">
-      <Card className="hover:border-primary-hover flex h-full flex-col transition-all hover:-translate-y-0.5 hover:shadow-md">
+      <Card className="flex h-full flex-col shadow-[0_2px_6px_rgba(29,78,216,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(29,78,216,0.18)]">
         <CardHeader>
           {instrument.category && (
-            <Badge className={categoryBadgeClasses(instrument.category) + " w-fit"}>
+            <Badge
+              className={cn(
+                "w-fit rounded-full",
+                categorySolidClasses(instrument.category),
+              )}
+            >
               {instrument.category}
             </Badge>
           )}

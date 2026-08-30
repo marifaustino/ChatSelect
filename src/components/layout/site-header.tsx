@@ -20,36 +20,40 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-40 border-b backdrop-blur">
-      <Container className="flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="text-lg font-semibold tracking-tight"
-          onClick={() => setOpen(false)}
-        >
-          ChatSelect
+    <header className="bg-primary-hover sticky top-0 z-40">
+      <Container className="flex items-center justify-between gap-4 py-3">
+        <Link href="/" className="leading-tight" onClick={() => setOpen(false)}>
+          <span className="block text-lg font-semibold tracking-tight text-white">
+            ChatSelect
+          </span>
+          <span className="hidden text-xs text-blue-200 sm:block">
+            Catálogo de instrumentos para avaliação de chatbots educacionais
+          </span>
         </Link>
 
         <div className="flex items-center gap-4">
           <nav className="hidden gap-6 text-sm font-medium md:flex">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "text-muted-foreground hover:text-foreground transition-colors",
-                  pathname === item.href && "text-foreground",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "border-b-2 border-transparent pb-1 transition-colors",
+                    active ? "border-white text-white" : "text-blue-200 hover:text-white",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="text-white hover:bg-white/10 hover:text-white md:hidden"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -61,21 +65,26 @@ export function SiteHeader() {
       </Container>
 
       {open && (
-        <nav id="mobile-nav" className="border-t md:hidden">
+        <nav id="mobile-nav" className="border-t border-white/20 md:hidden">
           <Container className="flex flex-col gap-1 py-3">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "text-muted-foreground hover:bg-accent hover:text-foreground rounded-md px-2 py-2 text-sm font-medium transition-colors",
-                  pathname === item.href && "bg-accent text-foreground",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "rounded-md px-2 py-2 text-sm font-medium transition-colors",
+                    active
+                      ? "bg-white/10 text-white"
+                      : "text-blue-200 hover:bg-white/10 hover:text-white",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </Container>
         </nav>
       )}

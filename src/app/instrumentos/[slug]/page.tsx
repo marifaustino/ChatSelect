@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
-import { InstrumentBreadcrumb } from "@/components/instrument/instrument-breadcrumb";
-import { InstrumentHeader } from "@/components/instrument/instrument-header";
+import { Card } from "@/components/ui/card";
+import { InstrumentSidebar } from "@/components/instrument/instrument-sidebar";
 import { InstrumentMeta } from "@/components/instrument/instrument-meta";
 import { TextSection } from "@/components/instrument/text-section";
 import { ProsConsSection } from "@/components/instrument/pros-cons-section";
@@ -53,30 +53,33 @@ export default async function InstrumentPage({
   const backHref = isValidListHref(from, parentHref) ? from : parentHref;
 
   return (
-    <Container className="max-w-3xl space-y-8 py-8">
-      <InstrumentBreadcrumb
-        parentHref={backHref}
-        parentLabel={parentLabel}
-        title={instrument.title}
-      />
-      <InstrumentHeader instrument={instrument} />
-      {instrument.isDualApplication && <DualApplicationNotice />}
-      <InstrumentMeta instrument={instrument} />
-      <TextSection
-        title="Descrição do instrumento"
-        text={instrument.instrumentDescription}
-      />
-      <TextSection title="Como pontuar" text={instrument.scoring} />
-      <TextSection title="Confiabilidade" text={instrument.reliability} />
-      <TextSection
-        title="Resultado de referência"
-        text={instrument.referenceResult}
-      />
-      <ProsConsSection
-        advantages={instrument.advantages}
-        limitations={instrument.limitations}
-      />
-      <SourceSection source={instrument.source} />
+    <Container className="py-8">
+      <Card className="grid overflow-hidden p-0 lg:grid-cols-[300px_1fr]">
+        <InstrumentSidebar
+          instrument={instrument}
+          backHref={backHref}
+          parentLabel={parentLabel}
+        />
+        <div className="space-y-8 bg-white px-6 py-8 sm:px-8">
+          {instrument.isDualApplication && <DualApplicationNotice />}
+          <TextSection
+            title="Descrição do instrumento"
+            text={instrument.instrumentDescription}
+          />
+          <InstrumentMeta instrument={instrument} />
+          <TextSection title="Como pontuar" text={instrument.scoring} />
+          <TextSection title="Confiabilidade" text={instrument.reliability} />
+          <TextSection
+            title="Resultado de referência"
+            text={instrument.referenceResult}
+          />
+          <ProsConsSection
+            advantages={instrument.advantages}
+            limitations={instrument.limitations}
+          />
+          <SourceSection source={instrument.source} />
+        </div>
+      </Card>
     </Container>
   );
 }

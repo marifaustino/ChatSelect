@@ -1,51 +1,19 @@
-/** Per-category color assignments so Categoria tags/checkboxes are visually
+/** Per-category color assignments so Categoria tags are visually
  * distinguishable at a glance instead of all sharing the same light-blue
- * tint. Keyed by the exact Portuguese category string from the CSV. */
-const CATEGORY_COLORS: Record<
-  string,
-  { badge: string; solid: string; border: string }
-> = {
-  "Experiência do Usuário": {
-    badge: "border-transparent bg-blue-100 text-blue-800",
-    solid: "border-blue-600 bg-blue-600 text-white",
-    border: "border-blue-600",
-  },
-  Usabilidade: {
-    badge: "border-transparent bg-green-100 text-green-800",
-    solid: "border-green-600 bg-green-600 text-white",
-    border: "border-green-600",
-  },
-  Aceitação: {
-    badge: "border-transparent bg-orange-100 text-orange-800",
-    solid: "border-orange-500 bg-orange-500 text-white",
-    border: "border-orange-500",
-  },
-  "Impacto Psicológico": {
-    badge: "border-transparent bg-purple-100 text-purple-800",
-    solid: "border-purple-600 bg-purple-600 text-white",
-    border: "border-purple-600",
-  },
-  "Qualidade das Respostas": {
-    badge: "border-transparent bg-[#f4e0d7] text-[#7c2d12]",
-    solid: "border-[#b3542c] bg-[#b3542c] text-white",
-    border: "border-[#b3542c]",
-  },
+ * tint. Keyed by the exact Portuguese category string from the CSV. Same
+ * colors back both the solid tag/pill (cards, instrument sidebar) and the
+ * checked state of the category filter checkbox. */
+const CATEGORY_COLORS: Record<string, string> = {
+  "Experiência do Usuário": "border-[#2563EB] bg-[#2563EB] text-white",
+  Usabilidade: "border-[#16A34A] bg-[#16A34A] text-white",
+  Aceitação: "border-[#EA580C] bg-[#EA580C] text-white",
+  "Impacto Psicológico": "border-[#7C3AED] bg-[#7C3AED] text-white",
+  "Qualidade das Respostas": "border-[#B91C1C] bg-[#B91C1C] text-white",
 };
 
-const DEFAULT_COLOR = {
-  badge: "border-transparent bg-secondary text-secondary-foreground",
-  solid: "border-primary bg-primary text-primary-foreground",
-  border: "border-primary",
-};
+const DEFAULT_COLOR = "border-primary bg-primary text-primary-foreground";
 
-/** Badge classes (light tint background + dark text) for displaying a
- * category tag on cards and instrument headers. */
-export function categoryBadgeClasses(category: string | null | undefined) {
-  return (category && CATEGORY_COLORS[category]?.badge) || DEFAULT_COLOR.badge;
-}
-
-/** Solid fill classes (used for the checked state of a category filter
- * checkbox) plus the matching border color for its unchecked state. */
+/** Solid border+background+text classes for a category. */
 export function categorySolidClasses(category: string | null | undefined) {
-  return (category && CATEGORY_COLORS[category]?.solid) || DEFAULT_COLOR.solid;
+  return (category && CATEGORY_COLORS[category]) || DEFAULT_COLOR;
 }
