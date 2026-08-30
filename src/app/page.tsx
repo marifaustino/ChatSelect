@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
-import { HeaderIllustration } from "@/components/layout/header-illustration";
 import { SearchBar } from "@/components/catalog/search-bar";
 import { FilterSidebar } from "@/components/catalog/filter-sidebar";
 import { CatalogGrid } from "@/components/catalog/catalog-grid";
@@ -49,25 +48,18 @@ export default async function CatalogPage({
           facetOptions={facetOptions}
         />
         <div className="flex flex-col gap-6">
-          <div className="flex items-start gap-4">
-            <HeaderIllustration
-              aria-hidden="true"
-              className="text-primary hidden h-12 w-auto shrink-0 sm:block"
-            />
-            <div>
-              <p className="text-primary text-xs font-semibold tracking-wide uppercase">
-                Instrumentos validados
-              </p>
-              <h1 className="text-2xl font-bold tracking-tight">
-                Instrumentos de avaliação
-              </h1>
-              <p className="text-muted-foreground text-sm">
-                {adapted.length} instrumentos com origem em fontes
-                psicométricas validadas, usados em pesquisas sobre chatbots
-                educacionais — questionários, escalas, entrevistas e
-                rubricas.
-              </p>
-            </div>
+          <div>
+            <p className="text-primary text-xs font-semibold tracking-wide uppercase">
+              Instrumentos validados
+            </p>
+            <h1 className="text-2xl font-bold tracking-tight">
+              Instrumentos de avaliação
+            </h1>
+            <p className="text-muted-foreground text-sm">
+              {adapted.length} instrumentos com origem em fontes
+              psicométricas validadas, usados em pesquisas sobre chatbots
+              educacionais — questionários, escalas, entrevistas e rubricas.
+            </p>
           </div>
           <SearchBar action="/" state={query} />
           <p className="text-muted-foreground text-sm">
