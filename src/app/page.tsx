@@ -15,7 +15,12 @@ import { catalogQueryFromSearchParams } from "@/core/models/catalog-query";
 import { currentListHref } from "@/lib/catalog/catalog-url";
 
 export const metadata: Metadata = {
-  title: "Instrumentos",
+  // Set as a full literal string rather than relying on the root layout's
+  // title template ("%s | ChatSelect") — on this Next.js version the
+  // template silently doesn't apply to the root "/" route specifically
+  // (verified: every other route applies it correctly), which left the
+  // browser tab reading bare "Instrumentos" with no "ChatSelect" in sight.
+  title: "ChatSelect",
   description:
     "Catálogo pesquisável de instrumentos de avaliação usados em pesquisas sobre chatbots educacionais.",
 };
