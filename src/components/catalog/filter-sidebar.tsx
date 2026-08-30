@@ -42,7 +42,7 @@ function ToggleOption({
       <span
         aria-hidden="true"
         className={cn(
-          "border-input flex size-4 shrink-0 items-center justify-center rounded-sm border-2 transition-colors",
+          "flex size-4 shrink-0 items-center justify-center rounded-sm border-2 border-[#0F172A] transition-colors",
           active
             ? (solidClasses ?? "border-primary bg-primary text-primary-foreground")
             : "hover:border-primary",
