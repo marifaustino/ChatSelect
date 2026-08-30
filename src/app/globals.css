@@ -53,17 +53,23 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-* {
-  border-color: var(--border);
-}
+/* Un-layered rules always beat Tailwind's utility classes in the cascade
+ * regardless of specificity — these must live in @layer base so that
+ * per-element border, background and font utility overrides actually take
+ * effect instead of being silently outranked. */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-}
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  }
 
-h1,
-h2 {
-  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  h1,
+  h2 {
+    font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  }
 }

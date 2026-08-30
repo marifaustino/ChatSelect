@@ -81,7 +81,7 @@ export function FilterSidebar({
         const options = facetOptions[key];
         if (options.length === 0) return null;
         return (
-          <Card key={key}>
+          <Card key={key} className="border-[#0F172A]">
             <CardHeader>
               <CardTitle className="text-sm">{FACET_LABELS[key]}</CardTitle>
             </CardHeader>
