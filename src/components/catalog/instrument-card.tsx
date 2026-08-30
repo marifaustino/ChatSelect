@@ -24,7 +24,7 @@ export function InstrumentCard({
     : `/instrumentos/${instrument.slug}`;
   return (
     <Link href={href} className="group block h-full">
-      <Card className="flex h-full flex-col border-[#0F172A] shadow-[0_2px_6px_rgba(29,78,216,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(29,78,216,0.18)]">
+      <Card className="flex h-full flex-col shadow-[0_2px_6px_rgba(29,78,216,0.08)] transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(29,78,216,0.18)]">
         <CardHeader>
           {instrument.category && (
             <Badge

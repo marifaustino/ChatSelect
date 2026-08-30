@@ -42,7 +42,7 @@ function ToggleOption({
       <span
         aria-hidden="true"
         className={cn(
-          "flex size-4 shrink-0 items-center justify-center rounded-sm border-2 border-[#0F172A] transition-colors",
+          "border-input flex size-4 shrink-0 items-center justify-center rounded-sm border-2 transition-colors",
           active
             ? (solidClasses ?? "border-primary bg-primary text-primary-foreground")
             : "hover:border-primary",
@@ -81,7 +81,7 @@ export function FilterSidebar({
         const options = facetOptions[key];
         if (options.length === 0) return null;
         return (
-          <Card key={key} className="border-[#0F172A]">
+          <Card key={key}>
             <CardHeader>
               <CardTitle className="text-sm">{FACET_LABELS[key]}</CardTitle>
             </CardHeader>
