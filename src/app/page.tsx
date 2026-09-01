@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   // browser tab reading bare "Instrumentos" with no "ChatSelect" in sight.
   title: "ChatSelect",
   description:
-    "Catálogo pesquisável de instrumentos de avaliação usados em pesquisas sobre chatbots educacionais.",
+    "Catálogo de instrumentos para avaliação de chatbots educacionais.",
 };
 
 type RawSearchParams = Record<string, string | string[] | undefined>;
