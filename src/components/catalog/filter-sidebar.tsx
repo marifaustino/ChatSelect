@@ -33,6 +33,7 @@ function ToggleOption({
   return (
     <Link
       href={href}
+      scroll={false}
       aria-pressed={active}
       className={cn(
         "hover:bg-accent flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
@@ -44,7 +45,8 @@ function ToggleOption({
         className={cn(
           "border-input flex size-4 shrink-0 items-center justify-center rounded-sm border-2 transition-colors",
           active
-            ? (solidClasses ?? "border-primary bg-primary text-primary-foreground")
+            ? (solidClasses ??
+                "border-primary bg-primary text-primary-foreground")
             : "hover:border-primary",
         )}
       >
@@ -72,6 +74,7 @@ export function FilterSidebar({
         </h2>
         <Link
           href={hrefClearAll(basePath)}
+          scroll={false}
           className="text-primary hover:text-primary-hover text-xs hover:underline"
         >
           Limpar
@@ -81,7 +84,7 @@ export function FilterSidebar({
         const options = facetOptions[key];
         if (options.length === 0) return null;
         return (
-          <Card key={key}>
+          <Card key={key} className="border-cyan-300/12 bg-[#0a172a]">
             <CardHeader>
               <CardTitle className="text-sm">{FACET_LABELS[key]}</CardTitle>
             </CardHeader>
@@ -95,7 +98,9 @@ export function FilterSidebar({
                     active={active}
                     label={option}
                     solidClasses={
-                      key === "category" ? categorySolidClasses(option) : undefined
+                      key === "category"
+                        ? categorySolidClasses(option)
+                        : undefined
                     }
                   />
                 );
