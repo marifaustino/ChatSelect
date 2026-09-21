@@ -4,11 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import { BrandMark } from "@/components/brand/brand-mark";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
+  { href: "/", label: "Início" },
   { href: "/instrumentos", label: "Catálogo" },
   { href: "/ad-hoc", label: "Instrumentos personalizados" },
   { href: "/solicitar", label: "Solicitar instrumento" },
@@ -22,19 +24,28 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-[#0F172A]">
       <Container className="flex items-center justify-between gap-4 py-3">
-        <Link href="/" className="leading-tight" onClick={() => setOpen(false)}>
-          <span className="block text-lg font-semibold tracking-tight text-white">
-            ChatSelect
-          </span>
-          <span className="hidden text-xs text-blue-200 sm:block">
-            Catálogo de instrumentos para avaliação de chatbots educacionais
+        <Link
+          href="/"
+          className="flex items-center gap-3"
+          onClick={() => setOpen(false)}
+        >
+          <BrandMark decorative className="size-10" />
+          <span className="leading-tight">
+            <span className="block text-lg font-semibold tracking-tight text-white">
+              ChatSelect
+            </span>
+            <span className="hidden text-xs text-blue-200 sm:block">
+              Evidências para avaliar chatbots educacionais
+            </span>
           </span>
         </Link>
 
         <div className="flex items-center gap-4">
           <nav className="hidden gap-6 text-sm font-medium md:flex">
             {NAV_ITEMS.map((item) => {
-              const active = pathname === item.href;
+              const active =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(`${item.href}/`));
               return (
                 <Link
                   key={item.href}
@@ -68,7 +79,9 @@ export function SiteHeader() {
         <nav id="mobile-nav" className="border-t border-white/20 md:hidden">
           <Container className="flex flex-col gap-1 py-3">
             {NAV_ITEMS.map((item) => {
-              const active = pathname === item.href;
+              const active =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(`${item.href}/`));
               return (
                 <Link
                   key={item.href}
