@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { BookOpen, Database, Mail, Search, User } from "lucide-react";
 import { Container } from "@/components/layout/container";
@@ -103,30 +102,6 @@ export default function AboutPage() {
             </Card>
           );
         })}
-      </section>
-
-      <section className="space-y-3 text-sm leading-relaxed">
-        <h2 className="text-xl font-semibold">Como usar</h2>
-        <p>
-          Navegue pela lista de instrumentos na aba{" "}
-          <Link
-            href="/instrumentos"
-            className="text-primary hover:text-primary-hover hover:underline"
-          >
-            Catálogo
-          </Link>
-          , busque por nome, autor ou descrição, ou filtre por categoria,
-          idioma, modalidade de comunicação e atributos. Clique em um
-          instrumento para ver a ficha completa. Se você conhece um
-          instrumento que não está no catálogo, sugira sua inclusão na aba{" "}
-          <Link
-            href="/solicitar"
-            className="text-primary hover:text-primary-hover hover:underline"
-          >
-            Solicitar instrumento
-          </Link>
-          .
-        </p>
       </section>
 
       <section className="space-y-6">
