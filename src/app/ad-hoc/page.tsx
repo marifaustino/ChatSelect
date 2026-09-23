@@ -35,7 +35,7 @@ export default async function AdHocPage({
   return (
     <Container className="space-y-8 py-8">
       <div className="flex flex-col gap-6">
-        <div className="max-w-3xl space-y-3">
+        <div className="space-y-3">
           <p className="text-primary text-xs font-semibold tracking-wide uppercase">
             Instrumentos não validados
           </p>
