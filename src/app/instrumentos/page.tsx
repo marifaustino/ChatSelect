@@ -36,12 +36,7 @@ export default async function CatalogPage({
 
   return (
     <>
-      <Container className="grid gap-8 py-8 lg:grid-cols-[260px_1fr]">
-        <FilterSidebar
-          basePath="/instrumentos"
-          state={query}
-          facetOptions={facetOptions}
-        />
+      <Container className="space-y-8 py-8">
         <div className="flex flex-col gap-6">
           <div>
             <p className="text-primary text-xs font-semibold tracking-wide uppercase">
@@ -69,6 +64,14 @@ export default async function CatalogPage({
               ? "instrumento encontrado"
               : "instrumentos encontrados"}
           </p>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+          <FilterSidebar
+            basePath="/instrumentos"
+            state={query}
+            facetOptions={facetOptions}
+          />
           <CatalogGrid
             instruments={filtered}
             backHref={currentListHref("/instrumentos", query)}
