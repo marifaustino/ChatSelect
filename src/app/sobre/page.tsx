@@ -68,14 +68,9 @@ export default function AboutPage() {
       </div>
 
       <section className="space-y-3 text-sm leading-relaxed">
-        <div>
-          <p className="text-primary text-xs font-semibold tracking-wide uppercase">
-            Motivação
-          </p>
-          <h2 className="text-xl font-semibold">
-            Menos tempo procurando. Mais critério escolhendo.
-          </h2>
-        </div>
+        <h2 className="text-xl font-semibold">
+          Menos tempo procurando. Mais critério escolhendo.
+        </h2>
         <p>
           A avaliação de chatbots educacionais envolve dimensões técnicas,
           pedagógicas e de experiência do usuário. Apesar da variedade de
