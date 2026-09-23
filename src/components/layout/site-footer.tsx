@@ -9,7 +9,7 @@ export function SiteFooter() {
       <Container className="grid gap-10 py-12 md:grid-cols-[1.4fr_0.6fr_0.8fr]">
         <div className="max-w-md">
           <div className="mb-4 flex items-center gap-3">
-            <BrandMark decorative className="size-9 rounded-xl" />
+            <BrandMark decorative className="size-9" />
             <span className="font-serif text-lg font-bold">ChatSelect</span>
           </div>
           <p className="text-muted-foreground text-sm leading-relaxed">

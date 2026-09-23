@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Mail, User } from "lucide-react";
+import { BookOpen, Database, Mail, Search, User } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -36,6 +36,24 @@ const TEAM = [
   },
 ] as const;
 
+const RESEARCH_PILLARS = [
+  {
+    icon: BookOpen,
+    title: "Base científica",
+    text: "O catálogo parte de um mapeamento sistemático da literatura sobre instrumentos e artefatos usados na avaliação de chatbots educacionais.",
+  },
+  {
+    icon: Database,
+    title: "Metadados estruturados",
+    text: "As fichas organizam descrição, atributos de qualidade, modalidade, idioma, aplicação, confiabilidade e fonte bibliográfica.",
+  },
+  {
+    icon: Search,
+    title: "Seleção apoiada",
+    text: "Busca e filtros reduzem o esforço de localizar alternativas e tornam a comparação mais sistemática, transparente e fundamentada.",
+  },
+] as const;
+
 export default function AboutPage() {
   return (
     <Container className="max-w-3xl space-y-6 py-8">
@@ -44,24 +62,52 @@ export default function AboutPage() {
           Sobre o ChatSelect
         </h1>
         <p className="text-muted-foreground">
-          Um catálogo de instrumentos de avaliação para pesquisa em chatbots
-          educacionais.
+          Uma ferramenta web criada para apoiar pesquisadores na escolha de
+          instrumentos adequados à avaliação de chatbots educacionais.
         </p>
       </div>
 
       <section className="space-y-3 text-sm leading-relaxed">
-        <h2 className="text-xl font-semibold">Motivação</h2>
+        <div>
+          <p className="text-primary text-xs font-semibold tracking-wide uppercase">
+            Motivação
+          </p>
+          <h2 className="text-xl font-semibold">
+            Menos tempo procurando. Mais critério escolhendo.
+          </h2>
+        </div>
         <p>
-          O ChatSelect nasceu de uma dificuldade concreta, vivida durante
-          nossa própria pesquisa: ao planejar a avaliação de um chatbot
-          educacional, percebemos que não havia um lugar único onde comparar
-          os instrumentos disponíveis na literatura. Cada busca no Google
-          Scholar trazia dezenas de questionários e escalas espalhados em
-          artigos diferentes, sem forma fácil de comparar confiabilidade,
-          idioma ou adequação ao nosso contexto. Esse catálogo é o resultado
-          de organizar, para nós mesmos, o que gostaríamos de ter encontrado
-          pronto — e agora compartilhamos com quem enfrenta o mesmo problema.
+          A avaliação de chatbots educacionais envolve dimensões técnicas,
+          pedagógicas e de experiência do usuário. Apesar da variedade de
+          questionários, escalas, entrevistas e rubricas disponível, as
+          informações necessárias para escolher entre eles permanecem
+          distribuídas por diferentes publicações.
         </p>
+        <p>
+          O ChatSelect centraliza esse conhecimento em fichas comparáveis.
+          Assim, pesquisadores podem identificar alternativas compatíveis com
+          seus objetivos, consultar evidências de validação e acessar a fonte
+          original de cada instrumento.
+        </p>
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-3">
+        {RESEARCH_PILLARS.map((pillar) => {
+          const Icon = pillar.icon;
+          return (
+            <Card key={pillar.title}>
+              <CardContent className="pt-6">
+                <span className="bg-secondary text-primary mb-4 flex size-11 items-center justify-center rounded-xl">
+                  <Icon className="size-5" aria-hidden="true" />
+                </span>
+                <p className="font-semibold">{pillar.title}</p>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                  {pillar.text}
+                </p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </section>
 
       <section className="space-y-3 text-sm leading-relaxed">
