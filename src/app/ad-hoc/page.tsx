@@ -62,7 +62,7 @@ export default async function AdHocPage({
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+      <div className="grid items-start gap-8 lg:grid-cols-[260px_1fr]">
         <FilterSidebar
           basePath="/ad-hoc"
           state={query}
