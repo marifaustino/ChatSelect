@@ -78,8 +78,8 @@ export default function HomePage() {
 
       {/* "O Desafio" — texto do Gabriel, componentes do tema claro */}
       <section className="bg-background py-16">
-        <Container className="max-w-4xl space-y-8">
-          <div className="max-w-2xl space-y-2">
+        <Container className="space-y-10">
+          <div className="mx-auto max-w-2xl space-y-2 text-center">
             <p className="text-primary text-xs font-semibold tracking-wide uppercase">
               O desafio
             </p>
@@ -87,7 +87,7 @@ export default function HomePage() {
               Avaliar bem começa por escolher bem.
             </h2>
           </div>
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="mx-auto grid max-w-4xl gap-5 sm:grid-cols-2">
             {CHALLENGE_CARDS.map((card) => (
               <Card key={card.title}>
                 <CardContent className="pt-6">
