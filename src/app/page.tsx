@@ -63,9 +63,13 @@ export default function HomePage() {
       <section className="bg-[#0F172A] py-20">
         <Container className="max-w-3xl space-y-6 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Já perdeu tempo procurando qual instrumento usar para avaliar seu
-            chatbot educacional?
+            Encontre o instrumento certo para avaliar seu chatbot educacional.
           </h1>
+          <p className="mx-auto max-w-2xl text-base text-blue-200 sm:text-lg">
+            O ChatSelect transforma evidências dispersas na literatura em um
+            catálogo claro e comparável — para você selecionar instrumentos
+            com mais agilidade, critério e transparência.
+          </p>
           <Button asChild size="lg" className="rounded-full">
             <Link href="/instrumentos">Explorar catálogo</Link>
           </Button>
@@ -206,30 +210,6 @@ export default function HomePage() {
               </CardContent>
             </Card>
           </div>
-        </Container>
-      </section>
-
-      <section className="bg-[#0F172A] py-16">
-        <Container className="space-y-10 text-center">
-          <div className="mx-auto grid max-w-xl grid-cols-3 gap-6">
-            <div>
-              <p className="text-4xl font-bold text-white">{all.length}</p>
-              <p className="text-sm text-blue-300">Instrumentos</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-white">
-                {validatedCount}
-              </p>
-              <p className="text-sm text-blue-300">Validados</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold text-white">{adHocCount}</p>
-              <p className="text-sm text-blue-300">Ad Hoc</p>
-            </div>
-          </div>
-          <Button asChild size="lg" className="rounded-full">
-            <Link href="/instrumentos">Ir para o Catálogo</Link>
-          </Button>
         </Container>
       </section>
     </>
