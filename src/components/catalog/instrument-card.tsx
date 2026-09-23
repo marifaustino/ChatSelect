@@ -36,11 +36,11 @@ export function InstrumentCard({
               {instrument.category}
             </Badge>
           )}
-          <CardTitle className="group-hover:text-primary font-serif text-base transition-colors">
+          <CardTitle className="group-hover:text-primary line-clamp-2 font-serif text-base transition-colors">
             {instrument.title}
           </CardTitle>
           {instrument.description && (
-            <CardDescription className="line-clamp-4">
+            <CardDescription className="line-clamp-3">
               {instrument.description}
             </CardDescription>
           )}
