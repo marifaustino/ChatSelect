@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Mail, User } from "lucide-react";
 import { Container } from "@/components/layout/container";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -94,38 +95,40 @@ export default function AboutPage() {
         </div>
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {TEAM.map((person) => (
-            <div key={person.name} className="space-y-2 text-center">
-              {/* Placeholder avatar — swap for <img src="..." /> once
-                  real photos are available, keeping this same circle. */}
-              <div className="bg-secondary mx-auto flex size-20 items-center justify-center rounded-full">
-                <User className="text-primary size-10" aria-hidden="true" />
-              </div>
-              <div>
-                <p className="text-sm font-bold">{person.name}</p>
-                <p className="text-muted-foreground text-xs">
-                  {person.institution}
-                </p>
-              </div>
-              <div className="space-y-1">
-                <a
-                  href={`mailto:${person.email}`}
-                  className="text-primary hover:text-primary-hover inline-flex items-center gap-1 text-xs break-all hover:underline"
-                >
-                  <Mail className="size-3 shrink-0" aria-hidden="true" />
-                  {person.email}
-                </a>
-                {person.orcid && (
+            <Card key={person.name}>
+              <CardContent className="space-y-2 pt-6 text-center">
+                {/* Placeholder avatar — swap for <img src="..." /> once
+                    real photos are available, keeping this same circle. */}
+                <div className="bg-secondary mx-auto flex size-20 items-center justify-center rounded-full">
+                  <User className="text-primary size-10" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold">{person.name}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {person.institution}
+                  </p>
+                </div>
+                <div className="space-y-1">
                   <a
-                    href={`https://orcid.org/${person.orcid}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-primary-hover block text-xs hover:underline"
+                    href={`mailto:${person.email}`}
+                    className="text-primary hover:text-primary-hover inline-flex items-center gap-1 text-xs break-all hover:underline"
                   >
-                    ORCID
+                    <Mail className="size-3 shrink-0" aria-hidden="true" />
+                    {person.email}
                   </a>
-                )}
-              </div>
-            </div>
+                  {person.orcid && (
+                    <a
+                      href={`https://orcid.org/${person.orcid}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-primary-hover block text-xs hover:underline"
+                    >
+                      ORCID
+                    </a>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </section>
