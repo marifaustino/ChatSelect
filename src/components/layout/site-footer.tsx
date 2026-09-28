@@ -29,7 +29,7 @@ export function SiteFooter() {
               Catálogo
             </Link>
             <Link href="/ad-hoc" className="hover:text-white">
-              Instrumentos personalizados
+              Ad Hoc
             </Link>
             <Link href="/solicitar" className="hover:text-white">
               Solicitar instrumento
