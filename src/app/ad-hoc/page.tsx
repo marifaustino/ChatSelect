@@ -39,12 +39,10 @@ export default async function AdHocPage({
           <p className="text-primary text-xs font-semibold tracking-wide uppercase">
             Instrumentos não validados
           </p>
-          <h1 className="text-2xl font-bold tracking-tight">
-            Instrumentos personalizados
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight">Ad Hoc</h1>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Os instrumentos personalizados são chamados de Ad Hoc, que são
-            questionários, escalas ou roteiros criados pelos próprios autores
+            Os instrumentos Ad Hoc são questionários, escalas ou roteiros
+            criados pelos próprios autores
             de um estudo especificamente para aquela pesquisa, sem derivar de
             uma fonte psicométrica validada e citável. Isso significa que, na
             maioria dos casos, não há dados formais de confiabilidade (como
