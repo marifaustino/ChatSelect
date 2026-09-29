@@ -14,21 +14,19 @@ function SidebarField({
   if (value === null || value === undefined || value === "") return null;
   return (
     <div>
-      <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+      <dt className="text-xs font-medium tracking-wide text-slate-400 uppercase">
         {label}
       </dt>
-      <dd className="text-foreground text-sm">{value}</dd>
+      <dd className="text-sm text-white">{value}</dd>
     </div>
   );
 }
 
-/** Fixed-style side panel replacing the old rigid 3-column meta grid for
- * short/identifying fields (title, authors, category, language,
+/** Dark fixed-style side panel replacing the old rigid 3-column meta grid
+ * for short/identifying fields (title, authors, category, language,
  * translations) — the "← Voltar" link lives here too, carrying whatever
  * filters/search were active on the listing (see isValidListHref in
- * catalog-url.ts) so returning to the list doesn't reset them. Border
- * (instead of a background color) separates it from the main content, which
- * shares the same bg-card/white tone. */
+ * catalog-url.ts) so returning to the list doesn't reset them. */
 export function InstrumentSidebar({
   instrument,
   backHref,
@@ -39,25 +37,23 @@ export function InstrumentSidebar({
   parentLabel: string;
 }) {
   return (
-    <aside className="space-y-6 border-b bg-card px-6 py-8 sm:px-8 lg:border-b-0 lg:border-r">
+    <aside className="space-y-6 bg-[#0F172A] px-6 py-8 sm:px-8">
       <Link
         href={backHref}
-        className="text-muted-foreground hover:text-primary inline-flex items-center gap-1 text-sm font-medium"
+        className="inline-flex items-center gap-1 text-sm font-medium text-slate-400 hover:text-white"
       >
         &larr; Voltar ao {parentLabel}
       </Link>
 
       <div className="space-y-3">
-        <Badge className="border-transparent bg-muted text-muted-foreground">
+        <Badge className="border-transparent bg-white/10 text-slate-300">
           {instrument.sheetName}
         </Badge>
-        <h1 className="text-foreground text-2xl font-bold tracking-tight">
+        <h1 className="text-2xl font-bold tracking-tight text-white">
           {instrument.title}
         </h1>
         {instrument.description && (
-          <p className="text-muted-foreground text-sm">
-            {instrument.description}
-          </p>
+          <p className="text-sm text-slate-400">{instrument.description}</p>
         )}
       </div>
 
@@ -65,7 +61,7 @@ export function InstrumentSidebar({
         <SidebarField label="Autores" value={instrument.authors} />
         {instrument.category && (
           <div>
-            <dt className="text-muted-foreground mb-1 text-xs font-medium tracking-wide uppercase">
+            <dt className="mb-1 text-xs font-medium tracking-wide text-slate-400 uppercase">
               Categoria
             </dt>
             <dd>
