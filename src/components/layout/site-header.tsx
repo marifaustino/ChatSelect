@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { BrandMark } from "@/components/brand/brand-mark";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
+import { AD_HOC_SLUGS } from "@/lib/catalog/ad-hoc-slugs";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -17,9 +18,28 @@ const NAV_ITEMS = [
   { href: "/sobre", label: "Sobre" },
 ] as const;
 
+/** /instrumentos/[slug] is shared by validated and ad-hoc instruments, so
+ * the URL prefix alone can't tell which nav item should be active — this
+ * resolves it from the instrument's own classification (AD_HOC_SLUGS),
+ * the same data that drives the "← Voltar ao Ad Hoc" link in the
+ * instrument sidebar. Every other route just matches its own prefix. */
+function resolveActiveHref(pathname: string): string {
+  const detailSlug = pathname.match(/^\/instrumentos\/([^/]+)\/?$/)?.[1];
+  if (detailSlug) {
+    return AD_HOC_SLUGS.has(detailSlug) ? "/ad-hoc" : "/instrumentos";
+  }
+  const match = NAV_ITEMS.find(
+    (item) =>
+      pathname === item.href ||
+      (item.href !== "/" && pathname.startsWith(`${item.href}/`)),
+  );
+  return match?.href ?? pathname;
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const activeHref = resolveActiveHref(pathname);
 
   return (
     <header className="sticky top-0 z-40 bg-[#0F172A]">
@@ -43,13 +63,12 @@ export function SiteHeader() {
         <div className="flex items-center gap-4">
           <nav className="hidden gap-6 text-sm font-medium md:flex">
             {NAV_ITEMS.map((item) => {
-              const active =
-                pathname === item.href ||
-                (item.href !== "/" && pathname.startsWith(`${item.href}/`));
+              const active = item.href === activeHref;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={active ? "page" : undefined}
                   className={cn(
                     "border-b-2 border-transparent pb-1 transition-colors",
                     active ? "border-white text-white" : "text-blue-200 hover:text-white",
@@ -79,14 +98,13 @@ export function SiteHeader() {
         <nav id="mobile-nav" className="border-t border-white/20 md:hidden">
           <Container className="flex flex-col gap-1 py-3">
             {NAV_ITEMS.map((item) => {
-              const active =
-                pathname === item.href ||
-                (item.href !== "/" && pathname.startsWith(`${item.href}/`));
+              const active = item.href === activeHref;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
                   className={cn(
                     "rounded-md px-2 py-2 text-sm font-medium transition-colors",
                     active
