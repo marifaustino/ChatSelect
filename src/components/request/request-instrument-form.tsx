@@ -207,6 +207,23 @@ export function RequestInstrumentForm() {
         </p>
       )}
 
+      <p className="text-muted-foreground text-xs leading-relaxed">
+        Ao enviar, os dados deste formulário (nome do instrumento, autores,
+        link, descrição, e-mail e observações) são transmitidos ao{" "}
+        <a
+          href="https://formspree.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-foreground"
+        >
+          Formspree
+        </a>
+        , serviço externo usado só para receber esta solicitação — não há
+        outro tratamento ou armazenamento pelo ChatSelect. O e-mail é
+        opcional e serve apenas para você receber um retorno sobre sua
+        sugestão.
+      </p>
+
       <Button type="submit" disabled={status === "submitting" || !canSubmit}>
         {status === "submitting" ? "Enviando…" : "Enviar solicitação"}
       </Button>
