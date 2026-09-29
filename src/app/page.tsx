@@ -41,7 +41,7 @@ const PROCESS_STEPS = [
     number: "02",
     title: "Refine as alternativas",
     description:
-      "Busque e filtre por atributo de qualidade, idioma, categoria e modalidade de comunicação.",
+      "Busque e filtre por categoria, idioma, modalidade de comunicação, atributos e atributos de qualidade.",
     icon: Search,
   },
   {
