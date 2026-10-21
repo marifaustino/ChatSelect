@@ -70,10 +70,6 @@ export default async function InstrumentPage({
           <InstrumentMeta instrument={instrument} />
           <TextSection title="Como pontuar" text={instrument.scoring} />
           <TextSection title="Confiabilidade" text={instrument.reliability} />
-          <TextSection
-            title="Resultado de referência"
-            text={instrument.referenceResult}
-          />
           <ProsConsSection
             advantages={instrument.advantages}
             limitations={instrument.limitations}
